@@ -10,7 +10,7 @@
 
 ## Reports
 
-### Week [n]
+### Week [0]
 
 - **Update 1**: 
 - **Update 2**: 
@@ -18,7 +18,7 @@
 - **Challenges**: 
 - **Next Steps**: 
 
-### Week [n-1]
+### Week [1]
 
 - **Update 1**: 
 - **Update 2**: 
@@ -26,7 +26,7 @@
 - **Challenges**: 
 - **Next Steps**: 
 
-### Week [n-2]
+### Week [2]
 
 - **Update 1**: 
 - **Update 2**: 
