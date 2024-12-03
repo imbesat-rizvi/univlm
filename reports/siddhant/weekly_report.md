@@ -28,8 +28,5 @@
 
 - Understanding Problem Statement discussion regarding technicality and expectations 
 - Distribution of the workflow among the team 
-- **Update 3**: 
-- **Challenges**: 
-- **Next Steps**: 
 
 ---
