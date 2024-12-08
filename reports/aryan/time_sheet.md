@@ -12,9 +12,10 @@
 
 | Start      | End        | Task Name       | Task Description         | Time Spent (hours) | Status        |
 |------------|------------|-----------------|--------------------------|--------------------|---------------|
-| [MM/DD/YY] | [MM/DD/YY] | Task Unification   | [Description of Task 1]  | [Time spent]       | [In Progress] |
-| [MM/DD/YY] | [MM/DD/YY] | [Task 2 Name]   | [Description of Task 2]  | [Time spent]       | [Completed]   |
-| [MM/DD/YY] | [MM/DD/YY] | [Task 3 Name]   | [Description of Task 3]  | [Time spent]       | [Pending]     |
+| [10/31/24] | [11/13/24] | Basics    |learning git,testing,HF etc  | 5        | [Completed] |
+| [11/13/24] | [11/20/24] | PS specific research   |Looked into fast.ai, HF and other platform's working  | 4       | [Completed]   |
+| [11/20/24] | [11/27/24] | Literature Review  |Search for modular/robust Depthperception models  | 5 | [In Progress]     |
+| [11/27/24] | [12/04/24] |Runnig DPT locally|Locally ran dpt,structure ideas!| 6 | [In Progress]     |
 
 ---
 
