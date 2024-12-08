@@ -11,7 +11,8 @@
 ## Reports
 ### Week [3] 
 ![image](https://github.com/user-attachments/assets/15553f25-23f9-4aae-a325-78fc01bcc5fa)
-Working towards generalizablity
+
+Progress and formulation of idea towards generalizability
 ### Week [2]
 
 - **Update 1**: Implemented a working approach where I first cached 100000 models name using HFapi() and then the user query in processed parallely in 5 partitions of data and top 5 matched models are returned and option to choose one of them is given 
