@@ -26,10 +26,11 @@
 - **Challenges**: 
 - **Next Steps**: 
 
-### Week [n-2]
+### Week [0]
 
-- **Update 1**: 
-- **Update 2**: 
+- **Understanding Problem Statement discussion regarding technicality and expectations
+Distribution of the workflow among the team**: 
+- **Distribution of the workflow among the team**: 
 - **Update 3**: 
 - **Challenges**: 
 - **Next Steps**: 
