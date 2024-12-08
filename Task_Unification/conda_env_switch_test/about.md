@@ -49,3 +49,4 @@ conda activate base
 ```bash
 python main.py
 ```
+**NOTE:** If you face issue that after runnig the *"conda activate <env-name>"* command it asks you to run conda init but still nothing happens, just open a terminal with administrator access and run everything from that its the last thing that worked for me(after trying all the other solutions.)
