@@ -1,7 +1,11 @@
-
 import os
 
 def rename_images(directory):
+    """Renames all image files in the specified directory to the format 'input.format'.
+
+    Args:
+        directory (str): The path to the directory containing the images.
+    """
     for filename in os.listdir(directory):
         file_path = os.path.join(directory, filename)
         if os.path.isfile(file_path):
@@ -23,7 +27,8 @@ if __name__ == "__main__":
     directory = r"D:\univlm\univlm\Test_assets"  # Update this path to your directory
     rename_images(directory)
 
-# This script will:
+
+    # This script will:
 
 # Iterate through all files in the specified directory.
 # Extract the file extension.
