@@ -10,12 +10,13 @@
 
 ## Task Progress
 
-| Start      | End        | Task Name       | Task Description         | Time Spent (hours) | Status        |
-|------------|------------|-----------------|--------------------------|--------------------|---------------|
-| [MM/DD/YY] | [MM/DD/YY] | Inference Unification   | [Description of Task 1]  | [Time spent]       | [In Progress] |
-| [MM/DD/YY] | [MM/DD/YY] | [Task 2 Name]   | [Description of Task 2]  | [Time spent]       | [Completed]   |
-| [MM/DD/YY] | [MM/DD/YY] | [Task 3 Name]   | [Description of Task 3]  | [Time spent]       | [Pending]     |
+| Start      | End        | Task Name                               | Task Description                                         | Time Spent (hours) | Status        |
+|------------|------------|-----------------------------------------|----------------------------------------------------------|--------------------|---------------|
+| [10/31/24] | [11/13/24] | Working on Basic                        | Brushing up on git,hf etc                                |      5             | Done          |
+| [11/13/24] | [11/20/24] | Ps Research                             | Getting Inspiration from existing similar framework      |      5             | Done          |
+| [11/20/24] | [11/27/24] | Working on HF side of starting Implnt.  | Division of sub-task, worked on query, fuzzy match method|      6             | Done          |
+| [11/27/24] | [12/10/24] | Improvement, Generalizablity            | Working towards Generalization, Testing methods          |      14            | In progress   |
 
 ---
 
-> **Status Options**: "In Progress," "Completed," or "Pending."
+> **Status Options**: "In Progress," Done," or "Pending."
