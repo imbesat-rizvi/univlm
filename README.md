@@ -1,2 +1,2 @@
-# univlm
-An inference and task unified VLM library
+# UniVLM
+An inference and task-unified VLM library
