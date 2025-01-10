@@ -1,0 +1,40 @@
+{
+  "paligemma2b": {
+      "tasks": {
+          "generate_caption": [
+              {
+                  "input": "tests/testcases/Dog.jpg",
+                  "expected_output": "German Shepherd dog"
+              }
+          ],
+          "batch_generate_caption": [
+              {
+                  "input": "tests/testcases",
+                  "expected_output": {
+                      "tests/testcases/Dog.jpg": "German Shepherd dog",
+                      "tests/testcases/cat-sitting-on-windowsill.jpg": "cat"
+                  }
+              }
+          ],
+          "answer_question": [
+              {
+                  "input": {
+                      "image_path": "tests/testcases/Dog.jpg",
+                      "question": "What is in the image, be concise in answering?"
+                  },
+                  "expected_output": "dog"
+              }
+          ]
+      }
+  },
+  "qwen2_5_instruct": {
+      "tasks": {
+          "generate_text": [
+              {
+                  "input": "Explain quantum mechanics.",
+                  "expected_output": "Quantum mechanics is a branch of physics that describes the behavior of physical systems on a microscale, such as atoms and subatomic particles. It is an extension of classical mechanics that takes into account the uncertainty principle, which states that it is impossible to simultaneously know both the position and momentum of a particle with arbitrary precision. The main features of quantum mechanics are: 1. Wave-particle duality: Particles can exhibit both wave-like and particle-like properties, depending on their state. 2. Superposition."
+              }
+          ]
+      }
+  }
+}
