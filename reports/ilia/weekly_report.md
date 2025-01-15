@@ -30,13 +30,18 @@
 
 - **Update 1**: I started studying the SAM-v2 model in more detail: reviewing the code, testing its functionality, analyzing the parameters, inputs, and outputs of the functions, exploring and applying the usage instructions, as well as working with demonstration examples in Google Colab
 - **Update 2**: I started implementing the pipeline, focusing on my assigned model. Later, we plan to integrate the other models that my teammates are working on in parallel
-- **Update 3**: 
-- **Next Steps**: to finish out pipline 
+- **Next Steps**: to finish our pipline 
 
 ### Week [KW 49]
 
-- **Update 1**: 
-- **Update 2**: 
-- **Update 3**: 
-- **Next Steps**: 
----
+- **Update 1**: I wrote the first version of the handler for our model, which provided a user-friendly interface for easy interaction with our model. It allowed users to simply select a point on the image, click on it, and get the 3 best masks with scores. To achieve this, I extracted the handler functions from the original model into a separate file and also wrote my own functions
+- **Update 2**: I started to prepare to our mid-term presentation
+- **Next Steps**: Fix my model so that it includes more advanced features, such as excluding a certain area from segmentation or working with video (since SAM-2 is capable of this), and also work on our presentation and present it
+
+### Week [KW 50]
+
+- **Update 1**: Next week, we dedicated our time to preparing for the presentation and gave it.
+- **Update 2**: I also prepared a video for my team to explain my part of the work and to present the concept of what I would be talking about during the presentation (it was just a video; in the end, we didn't include it in the presentation, and I presented it myself)
+- 
+- **Next Steps**: Discuss our presentation at the last meeting of the year
+
