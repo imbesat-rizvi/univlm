@@ -42,7 +42,7 @@
 
 - **Update 1**: Next week, we dedicated our time to preparing for the presentation and gave it.
 - **Update 2**: I also prepared a video for my team to explain my part of the work and to present the concept of what I would be talking about during the presentation (it was just a video; in the end, we didn't include it in the presentation, and I presented it myself)
-- **Update 3**: [video](../sam2-video_kzbX1yPF.mp4)
+- **Update 3**: [video](./sam2-video_kzbX1yPF.mp4)
 
 - **Next Steps**: Discuss our presentation at the last meeting of the year
 
