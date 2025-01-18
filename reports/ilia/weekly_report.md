@@ -46,3 +46,29 @@
 
 - **Next Steps**: Discuss our presentation at the last meeting of the year
 
+### Week [KW 51]
+
+- **Update 1**: Unfortunately, a force majeure situation occurred, and the person responsible for the Marigold model is no longer available for the project. Since the work on integrating SAM2 into the pipeline was still in its early stages and far from the final version, as well as being quite complex (due to the model’s multifunctionality, such as working with video, among other things), we decided that in order to meet the project deadline and given that our team has been reduced, I will take over the work on Marigold. If we have enough time, we will return to SAM2 later.
+- **Update 2**: Also, at the last meeting following the presentation, we decided that we lacked a clear structure. Despite the fact that everyone studied their model well, each of us integrated them into the pipeline in different ways, and we should have come to something more standardized
+
+- **Next Steps**: Study Marigold on Hugging Face
+
+- ### Week [KW 52]
+
+- **Update 1**: Christmas & New Year break at TU Darmstadt.
+
+- - ### Week [KW 1]
+
+- **Update 1**: Christmas & New Year break at TU Darmstadt.
+
+- - ### Week [KW 2]
+
+- **Update 1**: Christmas & New Year break at TU Darmstadt.
+
+- ### Week [KW 3]
+
+- **Update 1**: At the first meeting in 2025, we discussed the features of our models and the general requirements for integrating them into our pipeline. We proposed our structures and code examples, and one common pipeline structure was chosen, to which all models should be aligned
+
+- **Next Steps**: Integrate my model (Marigold) into the structure of our pipeline
+
+
