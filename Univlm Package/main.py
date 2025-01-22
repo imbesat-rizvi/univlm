@@ -24,7 +24,17 @@ def main():
                 "model": "qwen2_5_instruct",
                 "task": "generate_text",
                 "prompt": "What is the significance of artificial intelligence in modern healthcare?"
-            }
+            },
+            {
+                "model": "marigold",
+                "task": "depth_maps",
+                "image_folder": "Images",
+            },
+            {
+                "model": "marigold",
+                "task": "create_normals",
+                "image_folder": "Images",
+            },
         ]
     }
 

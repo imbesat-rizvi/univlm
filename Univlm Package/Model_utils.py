@@ -1,5 +1,5 @@
 import os
-from UniVLM.Models import Paligemma2B, Qwen2_5_Instruct
+from UniVLM.Models import Paligemma2B, Qwen2_5_Instruct, Marigold
 from UniVLM.Helper import HelperGuy
 
 class ModelGuy:
@@ -22,13 +22,15 @@ class ModelGuy:
         # Dictionary mapping model names to their respective classes
         self.model_classes = {
             "paligemma2b": Paligemma2B,
-            "qwen2_5_instruct": Qwen2_5_Instruct,  # Add Qwen model
+            "qwen2_5_instruct": Qwen2_5_Instruct,
+            "marigold": Marigold #added Marigold
         }
 
         # Dictionary mapping model names to their supported tasks
         self.model_tasks = {
             "paligemma2b": ["generate_caption", "answer_question", "batch_generate_caption", "batch_qa"],
             "qwen2_5_instruct": ["generate_text", "answer_instruction"],  # Add Qwen tasks
+            "marigold": ["depth_maps", "create_normals"]
         }
 
         self.model_instance = None
@@ -130,6 +132,13 @@ class ModelGuy:
                 for question, file_path in questions.items():
                     self.helper_guy.check_file_format(file_path)
 
+            elif task_name in ["depth_maps", "create_normals"]:
+                if image_folder:
+                    image_files = os.listdir(image_folder)
+                    for img_file in image_files:
+                        img_path = os.path.join(image_folder, img_file)
+                        self.helper_guy.check_file_format(img_path)
+
             # Step 2: Load the model
             self.load_model(model_name)
 
@@ -140,6 +149,8 @@ class ModelGuy:
                 prompt = parsed_input.get("prompt", None)
                 context = parsed_input.get("context", None)
                 return self.run_task(task_name, prompt, context)
+            elif task_name in ["depth_maps", "create_normals"]:
+                return self.run_task(task_name, image_folder)
             else:
                 return self.run_task(task_name, **parsed_input)
 

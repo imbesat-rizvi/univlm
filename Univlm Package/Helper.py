@@ -86,6 +86,8 @@ class HelperGuy:
         - `batch_qa`: For performing question answering on images.
         - `generate_text`: For generating text from a given prompt.
         - `answer_instruction`: A task for responding to specific instructions (e.g., for Qwen).
+        - `depth_maps`: For generating depth_maps for images.
+        - `create normals`: For generating normals for images.
 
         Parameters:
             json_input (dict): The JSON input containing task specifications.
@@ -142,6 +144,15 @@ class HelperGuy:
                     # Load model and execute text generation
                     model_guy.load_model(model_name)
                     results[task_name] = model_guy.run_task(task_name, prompt)
+
+                elif task_name == "depth_maps" or task_name == "create_normals":
+                    image_folder = task.get("image_folder")
+                    if not image_folder:
+                        raise ValueError(f"'image_folder'is required for task '{task_name}'.")
+
+                    # Load model and execute
+                    model_guy.load_model(model_name)
+                    results[task_name] = model_guy.run_task(task_name, image_folder)
 
                 else:
                     raise ValueError(f"Task '{task_name}' is not supported.")

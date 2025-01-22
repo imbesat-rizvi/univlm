@@ -1,6 +1,8 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForVision2Seq, AutoProcessor
 from PIL import Image
 import os
+import diffusers
+import torch
 
 class Paligemma2B:
     def __init__(self, model_name="google/paligemma-3b-pt-224"):
@@ -216,3 +218,114 @@ class Qwen2_5_Instruct:
             return response
         except Exception as e:
             raise RuntimeError(f"Instruction answering failed: {e}")
+
+class Marigold: #the file has been updated to use Marigold
+    def __init__(self, model_name="prs-eth/marigold-depth-lcm-v1-0"):
+        """
+        Initializes the Marigold model with the specified model name.
+
+        Args:
+            model_name (str): The name or path of the model to load (default is "prs-eth/marigold-depth-lcm-v1-0").
+        """
+        self.model_name = model_name
+        self.model = None
+
+
+    def load_model(self):
+        """
+        Loads the Marigold model from the specified model name.
+
+        Raises:
+            RuntimeError: If the model cannot be loaded successfully.
+        """
+        try:
+            # Marigold uses 2 classes to perform 2 different functions (MarigoldDepthPipeline and MarigoldNormalsPipeline),
+            # so we need a model depending on its name.
+            if self.model_name == "prs-eth/marigold-depth-lcm-v1-0":
+                self.model = diffusers.MarigoldDepthPipeline.from_pretrained(self.model_name, variant="fp16",
+                                                                             torch_dtype=torch.float16).to("cuda")
+            elif self.model_name == "prs-eth/marigold-normals-lcm-v0-1":
+                self.model = diffusers.MarigoldNormalsPipeline.from_pretrained(self.model_name, variant="fp16",
+                                                                               torch_dtype=torch.float16).to("cuda")
+            print(f"Marigold model '{self.model_name}' loaded successfully.")
+        except Exception as e:
+            raise RuntimeError(f"Error loading Marigold model: {e}")
+
+
+    def depth_maps(self, image_dir):
+        """
+        Generates depth maps for batch images. it also saves the results to the work directory
+
+        Args:
+            directory with all images we need to create depth_maps
+
+        Returns:
+            dict: The generated response of raw depth data as dictionary.
+
+        Raises:
+            RuntimeError: If depth maps creation failed
+            TypeError: if wrong model name was used
+            FileNotFoundError: if image(s) not found in directory
+        """
+        try:
+            if self.model_name != "prs-eth/marigold-depth-lcm-v1-0":
+                raise TypeError("The wrong model. Please use 'prs-eth/marigold-depth-lcm-v1-0' to create depth maps!")
+
+            # Image processing from a directory into List[PIL.Image.Image] format
+            image_paths = [os.path.join(image_dir, img) for img in os.listdir(image_dir) if
+                           img.endswith(('png', 'jpg', 'jpeg'))]
+            images = []
+            for path in image_paths:
+                if not os.path.exists(path):  # Check if file exists
+                    raise FileNotFoundError(f"Image not found at {path}")
+                img = Image.open(path)  # Open the image with Pillow
+                images.append(img)
+
+            depth_maps = self.model(images)
+            vis_dict = {}
+            for i, depth in enumerate(depth_maps.prediction):
+                vis_dict[i] = depth # save into dict raw depth data if we need work with it later
+                vis = self.model.image_processor.visualize_depth(depth)
+                vis[0].save(f"depth_map_{i + 1}.png") # save visualized data for end user
+            return vis_dict
+        except Exception as e:
+            raise RuntimeError(f"Depth maps creation failed: {e}")
+
+    def create_normals(self, image_dir):
+        """
+        Creates normals for batch images. it also saves the results to the work directory
+
+        Args:
+            directory with all images we need to create normals
+
+        Returns:
+            dict: The generated response of raw normal data as dictionary.
+
+        Raises:
+            RuntimeError: If normals creation failed
+            TypeError: if wrong model name was used
+            FileNotFoundError: if image(s) not found in directory
+        """
+        try:
+            if self.model_name != "prs-eth/marigold-normals-lcm-v0-1":
+                raise TypeError("The wrong model. Please use 'prs-eth/marigold-normals-lcm-v0-1' to create depth maps!")
+
+            # Image processing from a directory into List[PIL.Image.Image] format
+            image_paths = [os.path.join(image_dir, img) for img in os.listdir(image_dir) if
+                           img.endswith(('png', 'jpg', 'jpeg'))]
+            images = []
+            for path in image_paths:
+                if not os.path.exists(path):  # Check if file exists
+                    raise FileNotFoundError(f"Image not found at {path}")
+                img = Image.open(path)  # Open the image with Pillow
+                images.append(img)
+
+            normals = self.model(images)
+            vis_dict = {}
+            for i, normal in enumerate(normals.prediction):
+                vis_dict[i] = normal # save into dict raw normal data if we need work with it later
+                vis = self.model.image_processor.visualize_normals(normal)
+                vis[0].save(f"normal_{i + 1}.png") # save visualized data for end user
+            return vis_dict
+        except Exception as e:
+            raise RuntimeError(f"Normals creation failed: {e}")
