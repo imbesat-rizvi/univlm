@@ -1,0 +1,1195 @@
+{
+    "MODEL_FOR_CAUSAL_LM_MAPPING_NAMES": {
+      "aria_text": "AriaTextForCausalLM",
+      "bamba": "BambaForCausalLM",
+      "bart": "BartForCausalLM",
+      "bert": "BertLMHeadModel",
+      "bert-generation": "BertGenerationDecoder",
+      "big_bird": "BigBirdForCausalLM",
+      "bigbird_pegasus": "BigBirdPegasusForCausalLM",
+      "biogpt": "BioGptForCausalLM",
+      "blenderbot": "BlenderbotForCausalLM",
+      "blenderbot-small": "BlenderbotSmallForCausalLM",
+      "bloom": "BloomForCausalLM",
+      "camembert": "CamembertForCausalLM",
+      "code_llama": "LlamaForCausalLM",
+      "codegen": "CodeGenForCausalLM",
+      "cohere": "CohereForCausalLM",
+      "cohere2": "Cohere2ForCausalLM",
+      "cpmant": "CpmAntForCausalLM",
+      "ctrl": "CTRLLMHeadModel",
+      "data2vec-text": "Data2VecTextForCausalLM",
+      "dbrx": "DbrxForCausalLM",
+      "diffllama": "DiffLlamaForCausalLM",
+      "electra": "ElectraForCausalLM",
+      "emu3": "Emu3ForCausalLM",
+      "ernie": "ErnieForCausalLM",
+      "falcon": "FalconForCausalLM",
+      "falcon_mamba": "FalconMambaForCausalLM",
+      "fuyu": "FuyuForCausalLM",
+      "gemma": "GemmaForCausalLM",
+      "gemma2": "Gemma2ForCausalLM",
+      "git": "GitForCausalLM",
+      "glm": "GlmForCausalLM",
+      "gpt-sw3": "GPT2LMHeadModel",
+      "gpt2": "GPT2LMHeadModel",
+      "gpt_bigcode": "GPTBigCodeForCausalLM",
+      "gpt_neo": "GPTNeoForCausalLM",
+      "gpt_neox": "GPTNeoXForCausalLM",
+      "gpt_neox_japanese": "GPTNeoXJapaneseForCausalLM",
+      "gptj": "GPTJForCausalLM",
+      "granite": "GraniteForCausalLM",
+      "granitemoe": "GraniteMoeForCausalLM",
+      "helium": "HeliumForCausalLM",
+      "jamba": "JambaForCausalLM",
+      "jetmoe": "JetMoeForCausalLM",
+      "llama": "LlamaForCausalLM",
+      "mamba": "MambaForCausalLM",
+      "mamba2": "Mamba2ForCausalLM",
+      "marian": "MarianForCausalLM",
+      "mbart": "MBartForCausalLM",
+      "mega": "MegaForCausalLM",
+      "megatron-bert": "MegatronBertForCausalLM",
+      "mistral": "MistralForCausalLM",
+      "mixtral": "MixtralForCausalLM",
+      "mllama": "MllamaForCausalLM",
+      "moshi": "MoshiForCausalLM",
+      "mpt": "MptForCausalLM",
+      "musicgen": "MusicgenForCausalLM",
+      "musicgen_melody": "MusicgenMelodyForCausalLM",
+      "mvp": "MvpForCausalLM",
+      "nemotron": "NemotronForCausalLM",
+      "olmo": "OlmoForCausalLM",
+      "olmo2": "Olmo2ForCausalLM",
+      "olmoe": "OlmoeForCausalLM",
+      "open-llama": "OpenLlamaForCausalLM",
+      "openai-gpt": "OpenAIGPTLMHeadModel",
+      "opt": "OPTForCausalLM",
+      "pegasus": "PegasusForCausalLM",
+      "persimmon": "PersimmonForCausalLM",
+      "phi": "PhiForCausalLM",
+      "phi3": "Phi3ForCausalLM",
+      "phimoe": "PhimoeForCausalLM",
+      "plbart": "PLBartForCausalLM",
+      "prophetnet": "ProphetNetForCausalLM",
+      "qdqbert": "QDQBertLMHeadModel",
+      "qwen2": "Qwen2ForCausalLM",
+      "qwen2_moe": "Qwen2MoeForCausalLM",
+      "recurrent_gemma": "RecurrentGemmaForCausalLM",
+      "reformer": "ReformerModelWithLMHead",
+      "rembert": "RemBertForCausalLM",
+      "roberta": "RobertaForCausalLM",
+      "roberta-prelayernorm": "RobertaPreLayerNormForCausalLM",
+      "roc_bert": "RoCBertForCausalLM",
+      "roformer": "RoFormerForCausalLM",
+      "rwkv": "RwkvForCausalLM",
+      "speech_to_text_2": "Speech2Text2ForCausalLM",
+      "stablelm": "StableLmForCausalLM",
+      "starcoder2": "Starcoder2ForCausalLM",
+      "transfo-xl": "TransfoXLLMHeadModel",
+      "trocr": "TrOCRForCausalLM",
+      "whisper": "WhisperForCausalLM",
+      "xglm": "XGLMForCausalLM",
+      "xlm": "XLMWithLMHeadModel",
+      "xlm-prophetnet": "XLMProphetNetForCausalLM",
+      "xlm-roberta": "XLMRobertaForCausalLM",
+      "xlm-roberta-xl": "XLMRobertaXLForCausalLM",
+      "xlnet": "XLNetLMHeadModel",
+      "xmod": "XmodForCausalLM",
+      "zamba": "ZambaForCausalLM"
+    },
+    "MODEL_FOR_VISION_2_SEQ_MAPPING_NAMES": {
+      "blip": "BlipForConditionalGeneration",
+      "blip-2": "Blip2ForConditionalGeneration",
+      "chameleon": "ChameleonForConditionalGeneration",
+      "git": "GitForCausalLM",
+      "idefics2": "Idefics2ForConditionalGeneration",
+      "idefics3": "Idefics3ForConditionalGeneration",
+      "instructblip": "InstructBlipForConditionalGeneration",
+      "instructblipvideo": "InstructBlipVideoForConditionalGeneration",
+      "kosmos-2": "Kosmos2ForConditionalGeneration",
+      "llava": "LlavaForConditionalGeneration",
+      "llava_next": "LlavaNextForConditionalGeneration",
+      "llava_next_video": "LlavaNextVideoForConditionalGeneration",
+      "llava_onevision": "LlavaOnevisionForConditionalGeneration",
+      "mllama": "MllamaForConditionalGeneration",
+      "paligemma": "PaliGemmaForConditionalGeneration",
+      "pix2struct": "Pix2StructForConditionalGeneration",
+      "qwen2_vl": "Qwen2VLForConditionalGeneration",
+      "video_llava": "VideoLlavaForConditionalGeneration",
+      "vipllava": "VipLlavaForConditionalGeneration",
+      "vision-encoder-decoder": "VisionEncoderDecoderModel"
+    },
+    "MODEL_FOR_DEPTH_ESTIMATION_MAPPING_NAMES":{
+      "depth_anything": "DepthAnythingForDepthEstimation",
+      "dpt": "DPTForDepthEstimation",
+      "glpn": "GLPNForDepthEstimation",
+      "zoedepth": "ZoeDepthForDepthEstimation"
+    },
+    "vllm_supported_models": [
+    "bloom",
+    "bloomz",
+    "bloomz-mt",
+    "bloomz-1b7",
+    "bloomz-3b",
+    "bloomz-7b",
+    "bloomz-mt-1b7",
+    "bloomz-mt-3b",
+    "bloomz-mt-7b",
+    "dolly-v2-3b",
+    "dolly-v2-7b",
+    "dolly-v2-12b",
+    "falcon-7b",
+    "falcon-40b",
+    "falcon-instruct-7b",
+    "falcon-instruct-40b",
+    "gpt-2",
+    "gpt-neo-1.3b",
+    "gpt-neo-2.7b",
+    "gpt-j-6b",
+    "gpt-neox-20b",
+    "llama-7b",
+    "llama-13b",
+    "llama-30b",
+    "llama-65b",
+    "llama-2-7b",
+    "llama-2-13b",
+    "llama-2-70b",
+    "llama-2-chat-7b",
+    "llama-2-chat-13b",
+    "llama-2-chat-70b",
+    "mistral-7b",
+    "mistral-instruct-7b",
+    "opt-2.7b",
+    "opt-6.7b",
+    "opt-13b",
+    "opt-30b",
+    "pythia-1b",
+    "pythia-2.8b",
+    "pythia-6.9b",
+    "pythia-deduped-1b",
+    "pythia-deduped-2.8b",
+    "pythia-deduped-6.9b",
+    "pythia-vicuna-1b",
+    "pythia-vicuna-2.8b",
+    "starcoder",
+    "starcoderplus",
+    "vicuna-7b",
+    "vicuna-13b",
+    "Qwen2",
+    "OlMo",
+    "gpt-neo"
+    ],
+    "PROCESSOR_MAPPING_NAMES": {
+          "align": "AlignProcessor",
+          "altclip": "AltCLIPProcessor", 
+          "aria": "AriaProcessor",
+          "bark": "BarkProcessor",
+          "blip": "BlipProcessor",
+          "blip-2": "Blip2Processor",
+          "bridgetower": "BridgeTowerProcessor",
+          "chameleon": "ChameleonProcessor",
+          "chinese_clip": "ChineseCLIPProcessor",
+          "clap": "ClapProcessor",
+          "clip": "CLIPProcessor",
+          "clipseg": "CLIPSegProcessor",
+          "clvp": "ClvpProcessor",
+          "colpali": "ColPaliProcessor",
+          "emu3": "Emu3Processor",
+          "flava": "FlavaProcessor",
+          "fuyu": "FuyuProcessor",
+          "git": "GitProcessor",
+          "grounding-dino": "GroundingDinoProcessor",
+          "groupvit": "CLIPProcessor",
+          "hubert": "Wav2Vec2Processor",
+          "idefics": "IdeficsProcessor",
+          "idefics2": "Idefics2Processor",
+          "idefics3": "Idefics3Processor",
+          "instructblip": "InstructBlipProcessor",
+          "instructblipvideo": "InstructBlipVideoProcessor",
+          "kosmos-2": "Kosmos2Processor",
+          "layoutlmv2": "LayoutLMv2Processor",
+          "layoutlmv3": "LayoutLMv3Processor",
+          "llava": "LlavaProcessor",
+          "llava_next": "LlavaNextProcessor",
+          "llava_next_video": "LlavaNextVideoProcessor",
+          "llava_onevision": "LlavaOnevisionProcessor",
+          "markuplm": "MarkupLMProcessor",
+          "mctct": "MCTCTProcessor",
+          "mgp-str": "MgpstrProcessor",
+          "mllama": "MllamaProcessor",
+          "moonshine": "Wav2Vec2Processor",
+          "oneformer": "OneFormerProcessor",
+          "owlv2": "Owlv2Processor",
+          "owlvit": "OwlViTProcessor",
+          "paligemma": "PaliGemmaProcessor",
+          "pix2struct": "Pix2StructProcessor",
+          "pixtral": "PixtralProcessor",
+          "pop2piano": "Pop2PianoProcessor",
+          "qwen2_audio": "Qwen2AudioProcessor",
+          "qwen2_vl": "Qwen2VLProcessor",
+          "sam": "SamProcessor",
+          "seamless_m4t": "SeamlessM4TProcessor",
+          "sew": "Wav2Vec2Processor",
+          "sew-d": "Wav2Vec2Processor",
+          "siglip": "SiglipProcessor",
+          "speech_to_text": "Speech2TextProcessor",
+          "speech_to_text_2": "Speech2Text2Processor",
+          "speecht5": "SpeechT5Processor",
+          "trocr": "TrOCRProcessor",
+          "tvlt": "TvltProcessor",
+          "tvp": "TvpProcessor",
+          "udop": "UdopProcessor",
+          "unispeech": "Wav2Vec2Processor",
+          "unispeech-sat": "Wav2Vec2Processor",
+          "video_llava": "VideoLlavaProcessor",
+          "vilt": "ViltProcessor",
+          "vipllava": "LlavaProcessor",
+          "vision-text-dual-encoder": "VisionTextDualEncoderProcessor",
+          "wav2vec2": "Wav2Vec2Processor",
+          "wav2vec2-bert": "Wav2Vec2Processor",
+          "wav2vec2-conformer": "Wav2Vec2Processor",
+          "wavlm": "Wav2Vec2Processor",
+          "whisper": "WhisperProcessor",
+          "xclip": "XCLIPProcessor"
+        },
+    "TOKENIZER_MAPPING_NAMES": {
+          "albert": {
+            "slow": "AlbertTokenizer",
+            "fast": "AlbertTokenizerFast"
+          },
+          "align": {
+            "slow": "BertTokenizer",
+            "fast": "BertTokenizerFast"
+          },
+          "aria": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "bark": {
+            "slow": "BertTokenizer",
+            "fast": "BertTokenizerFast"
+          },
+          "bart": {
+            "slow": "BartTokenizer",
+            "fast": "BartTokenizerFast"
+          },
+          "barthez": {
+            "slow": "BarthezTokenizer",
+            "fast": "BarthezTokenizerFast"
+          },
+          "bartpho": {
+            "slow": "BartphoTokenizer",
+            "fast": null
+          },
+          "bert": {
+            "slow": "BertTokenizer",
+            "fast": "BertTokenizerFast"
+          },
+          "bert-generation": {
+            "slow": "BertGenerationTokenizer",
+            "fast": null
+          },
+          "bert-japanese": {
+            "slow": "BertJapaneseTokenizer",
+            "fast": null
+          },
+          "bertweet": {
+            "slow": "BertweetTokenizer",
+            "fast": null
+          },
+          "big_bird": {
+            "slow": "BigBirdTokenizer",
+            "fast": "BigBirdTokenizerFast"
+          },
+          "bigbird_pegasus": {
+            "slow": "PegasusTokenizer",
+            "fast": "PegasusTokenizerFast"
+          },
+          "biogpt": {
+            "slow": "BioGptTokenizer",
+            "fast": null
+          },
+          "blenderbot": {
+            "slow": "BlenderbotTokenizer",
+            "fast": "BlenderbotTokenizerFast"
+          },
+          "blenderbot-small": {
+            "slow": "BlenderbotSmallTokenizer",
+            "fast": null
+          },
+          "blip": {
+            "slow": "BertTokenizer",
+            "fast": "BertTokenizerFast"
+          },
+          "blip-2": {
+            "slow": "GPT2Tokenizer",
+            "fast": "GPT2TokenizerFast"
+          },
+          "bloom": {
+            "slow": null,
+            "fast": "BloomTokenizerFast"
+          },
+          "bridgetower": {
+            "slow": "RobertaTokenizer",
+            "fast": "RobertaTokenizerFast"
+          },
+          "bros": {
+            "slow": "BertTokenizer",
+            "fast": "BertTokenizerFast"
+          },
+          "byt5": {
+            "slow": "ByT5Tokenizer",
+            "fast": null
+          },
+          "camembert": {
+            "slow": "CamembertTokenizer",
+            "fast": "CamembertTokenizerFast"
+          },
+          "canine": {
+            "slow": "CanineTokenizer",
+            "fast": null
+          },
+          "chameleon": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "chinese_clip": {
+            "slow": "BertTokenizer",
+            "fast": "BertTokenizerFast"
+          },
+          "clap": {
+            "slow": "RobertaTokenizer",
+            "fast": "RobertaTokenizerFast"
+          },
+          "clip": {
+            "slow": "CLIPTokenizer",
+            "fast": "CLIPTokenizerFast"
+          },
+          "clipseg": {
+            "slow": "CLIPTokenizer",
+            "fast": "CLIPTokenizerFast"
+          },
+          "clvp": {
+            "slow": "ClvpTokenizer",
+            "fast": null
+          },
+          "code_llama": {
+            "slow": "CodeLlamaTokenizer",
+            "fast": "CodeLlamaTokenizerFast"
+          },
+          "codegen": {
+            "slow": "CodeGenTokenizer",
+            "fast": "CodeGenTokenizerFast"
+          },
+          "cohere": {
+            "slow": null,
+            "fast": "CohereTokenizerFast"
+          },
+          "cohere2": {
+            "slow": null,
+            "fast": "CohereTokenizerFast"
+          },
+          "colpali": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "convbert": {
+            "slow": "ConvBertTokenizer",
+            "fast": "ConvBertTokenizerFast"
+          },
+          "cpm": {
+            "slow": "CpmTokenizer",
+            "fast": "CpmTokenizerFast"
+          },
+          "cpmant": {
+            "slow": "CpmAntTokenizer",
+            "fast": null
+          },
+          "ctrl": {
+            "slow": "CTRLTokenizer",
+            "fast": null
+          },
+          "data2vec-audio": {
+            "slow": "Wav2Vec2CTCTokenizer",
+            "fast": null
+          },
+          "data2vec-text": {
+            "slow": "RobertaTokenizer",
+            "fast": "RobertaTokenizerFast"
+          },
+          "dbrx": {
+            "slow": "GPT2Tokenizer",
+            "fast": "GPT2TokenizerFast"
+          },
+          "deberta": {
+            "slow": "DebertaTokenizer",
+            "fast": "DebertaTokenizerFast"
+          },
+          "deberta-v2": {
+            "slow": "DebertaV2Tokenizer",
+            "fast": "DebertaV2TokenizerFast"
+          },
+          "diffllama": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "distilbert": {
+            "slow": "DistilBertTokenizer",
+            "fast": "DistilBertTokenizerFast"
+          },
+          "dpr": {
+            "slow": "DPRQuestionEncoderTokenizer",
+            "fast": "DPRQuestionEncoderTokenizerFast"
+          },
+          "electra": {
+            "slow": "ElectraTokenizer",
+            "fast": "ElectraTokenizerFast"
+          },
+          "emu3": {
+            "slow": "GPT2Tokenizer",
+            "fast": "GPT2TokenizerFast"
+          },
+          "ernie": {
+            "slow": "BertTokenizer",
+            "fast": "BertTokenizerFast"
+          },
+          "ernie_m": {
+            "slow": "ErnieMTokenizer",
+            "fast": null
+          },
+          "esm": {
+            "slow": "EsmTokenizer",
+            "fast": null
+          },
+          "falcon": {
+            "slow": null,
+            "fast": "PreTrainedTokenizerFast"
+          },
+          "falcon_mamba": {
+            "slow": null,
+            "fast": "GPTNeoXTokenizerFast"
+          },
+          "fastspeech2_conformer": {
+            "slow": "FastSpeech2ConformerTokenizer",
+            "fast": null
+          },
+          "flaubert": {
+            "slow": "FlaubertTokenizer",
+            "fast": null
+          },
+          "fnet": {
+            "slow": "FNetTokenizer",
+            "fast": "FNetTokenizerFast"
+          },
+          "fsmt": {
+            "slow": "FSMTTokenizer",
+            "fast": null
+          },
+          "funnel": {
+            "slow": "FunnelTokenizer",
+            "fast": "FunnelTokenizerFast"
+          },
+          "gemma": {
+            "slow": "GemmaTokenizer",
+            "fast": "GemmaTokenizerFast"
+          },
+          "gemma2": {
+            "slow": "GemmaTokenizer",
+            "fast": "GemmaTokenizerFast"
+          },
+          "git": {
+            "slow": "BertTokenizer",
+            "fast": "BertTokenizerFast"
+          },
+          "glm": {
+            "slow": null,
+            "fast": "PreTrainedTokenizerFast"
+          },
+          "gpt-sw3": {
+            "slow": "GPTSw3Tokenizer",
+            "fast": null
+          },
+          "gpt2": {
+            "slow": "GPT2Tokenizer",
+            "fast": "GPT2TokenizerFast"
+          },
+          "gpt_bigcode": {
+            "slow": "GPT2Tokenizer",
+            "fast": "GPT2TokenizerFast"
+          },
+          "gpt_neo": {
+            "slow": "GPT2Tokenizer",
+            "fast": "GPT2TokenizerFast"
+          },
+          "gpt_neox": {
+            "slow": null,
+            "fast": "GPTNeoXTokenizerFast"
+          },
+          "gpt_neox_japanese": {
+            "slow": "GPTNeoXJapaneseTokenizer",
+            "fast": null
+          },
+          "gptj": {
+            "slow": "GPT2Tokenizer",
+            "fast": "GPT2TokenizerFast"
+          },
+          "gptsan-japanese": {
+            "slow": "GPTSanJapaneseTokenizer",
+            "fast": null
+          },
+          "grounding-dino": {
+            "slow": "BertTokenizer",
+            "fast": "BertTokenizerFast"
+          },
+          "groupvit": {
+            "slow": "CLIPTokenizer",
+            "fast": "CLIPTokenizerFast"
+          },
+          "helium": {
+            "slow": null,
+            "fast": "PreTrainedTokenizerFast"
+          },
+          "herbert": {
+            "slow": "HerbertTokenizer",
+            "fast": "HerbertTokenizerFast"
+          },
+          "hubert": {
+            "slow": "Wav2Vec2CTCTokenizer",
+            "fast": null
+          },
+          "ibert": {
+            "slow": "RobertaTokenizer",
+            "fast": "RobertaTokenizerFast"
+          },
+          "idefics": {
+            "slow": null,
+            "fast": "LlamaTokenizerFast"
+          },
+          "idefics2": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "idefics3": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "instructblip": {
+            "slow": "GPT2Tokenizer",
+            "fast": "GPT2TokenizerFast"
+          },
+          "instructblipvideo": {
+            "slow": "GPT2Tokenizer",
+            "fast": "GPT2TokenizerFast"
+          },
+          "jamba": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "jetmoe": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "jukebox": {
+            "slow": "JukeboxTokenizer",
+            "fast": null
+          },
+          "kosmos-2": {
+            "slow": "XLMRobertaTokenizer",
+            "fast": "XLMRobertaTokenizerFast"
+          },
+          "layoutlm": {
+            "slow": "LayoutLMTokenizer",
+            "fast": "LayoutLMTokenizerFast"
+          },
+          "layoutlmv2": {
+            "slow": "LayoutLMv2Tokenizer",
+            "fast": "LayoutLMv2TokenizerFast"
+          },
+          "layoutlmv3": {
+            "slow": "LayoutLMv3Tokenizer",
+            "fast": "LayoutLMv3TokenizerFast"
+          },
+          "layoutxlm": {
+            "slow": "LayoutXLMTokenizer",
+            "fast": "LayoutXLMTokenizerFast"
+          },
+          "led": {
+            "slow": "LEDTokenizer",
+            "fast": "LEDTokenizerFast"
+          },
+          "lilt": {
+            "slow": "LayoutLMv3Tokenizer",
+            "fast": "LayoutLMv3TokenizerFast"
+          },
+          "llama": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "llava": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "llava_next": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "llava_next_video": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "llava_onevision": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "longformer": {
+            "slow": "LongformerTokenizer",
+            "fast": "LongformerTokenizerFast"
+          },
+          "longt5": {
+            "slow": "T5Tokenizer",
+            "fast": "T5TokenizerFast"
+          },
+          "luke": {
+            "slow": "LukeTokenizer",
+            "fast": null
+          },
+          "lxmert": {
+            "slow": "LxmertTokenizer",
+            "fast": "LxmertTokenizerFast"
+          },
+          "m2m_100": {
+            "slow": "M2M100Tokenizer",
+            "fast": null
+          },
+          "mamba": {
+            "slow": null,
+            "fast": "GPTNeoXTokenizerFast"
+          },
+          "mamba2": {
+            "slow": null,
+            "fast": "GPTNeoXTokenizerFast"
+          },
+          "marian": {
+            "slow": "MarianTokenizer",
+            "fast": null
+          },
+          "mbart": {
+            "slow": "MBartTokenizer",
+            "fast": "MBartTokenizerFast"
+          },
+          "mbart50": {
+            "slow": "MBart50Tokenizer",
+            "fast": "MBart50TokenizerFast"
+          },
+          "mega": {
+            "slow": "RobertaTokenizer",
+            "fast": "RobertaTokenizerFast"
+          },
+          "megatron-bert": {
+            "slow": "BertTokenizer",
+            "fast": "BertTokenizerFast"
+          },
+          "mgp-str": {
+            "slow": "MgpstrTokenizer",
+            "fast": null
+          },
+          "mistral": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "mixtral": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "mllama": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "mluke": {
+            "slow": "MLukeTokenizer",
+            "fast": null
+          },
+          "mobilebert": {
+            "slow": "MobileBertTokenizer",
+            "fast": "MobileBertTokenizerFast"
+          },
+          "modernbert": {
+            "slow": null,
+            "fast": "PreTrainedTokenizerFast"
+          },
+          "moonshine": {
+            "slow": null,
+            "fast": "PreTrainedTokenizerFast"
+          },
+          "moshi": {
+            "slow": null,
+            "fast": "PreTrainedTokenizerFast"
+          },
+          "mpnet": {
+            "slow": "MPNetTokenizer",
+            "fast": "MPNetTokenizerFast"
+          },
+          "mpt": {
+            "slow": null,
+            "fast": "GPTNeoXTokenizerFast"
+          },
+          "mra": {
+            "slow": "RobertaTokenizer",
+            "fast": "RobertaTokenizerFast"
+          },
+          "mt5": {
+            "slow": "MT5Tokenizer",
+            "fast": "MT5TokenizerFast"
+          },
+          "musicgen": {
+            "slow": "T5Tokenizer",
+            "fast": "T5TokenizerFast"
+          },
+          "musicgen_melody": {
+            "slow": "T5Tokenizer",
+            "fast": "T5TokenizerFast"
+          },
+          "mvp": {
+            "slow": "MvpTokenizer",
+            "fast": "MvpTokenizerFast"
+          },
+          "myt5": {
+            "slow": "MyT5Tokenizer",
+            "fast": null
+          },
+          "nezha": {
+            "slow": "BertTokenizer",
+            "fast": "BertTokenizerFast"
+          },
+          "nllb": {
+            "slow": "NllbTokenizer",
+            "fast": "NllbTokenizerFast"
+          },
+          "nllb-moe": {
+            "slow": "NllbTokenizer",
+            "fast": "NllbTokenizerFast"
+          },
+          "nystromformer": {
+            "slow": "AlbertTokenizer",
+            "fast": "AlbertTokenizerFast"
+          },
+          "olmo": {
+            "slow": null,
+            "fast": "GPTNeoXTokenizerFast"
+          },
+          "olmo2": {
+            "slow": null,
+            "fast": "GPTNeoXTokenizerFast"
+          },
+          "olmoe": {
+            "slow": null,
+            "fast": "GPTNeoXTokenizerFast"
+          },
+          "omdet-turbo": {
+            "slow": "CLIPTokenizer",
+            "fast": "CLIPTokenizerFast"
+          },
+          "oneformer": {
+            "slow": "CLIPTokenizer",
+            "fast": "CLIPTokenizerFast"
+          },
+          "openai-gpt": {
+            "slow": "OpenAIGPTTokenizer",
+            "fast": "OpenAIGPTTokenizerFast"
+          },
+          "opt": {
+            "slow": "GPT2Tokenizer",
+            "fast": "GPT2TokenizerFast"
+          },
+          "owlv2": {
+            "slow": "CLIPTokenizer",
+            "fast": "CLIPTokenizerFast"
+          },
+          "owlvit": {
+            "slow": "CLIPTokenizer",
+            "fast": "CLIPTokenizerFast"
+          },
+          "paligemma": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "pegasus": {
+            "slow": "PegasusTokenizer",
+            "fast": "PegasusTokenizerFast"
+          },
+          "pegasus_x": {
+            "slow": "PegasusTokenizer",
+            "fast": "PegasusTokenizerFast"
+          },
+          "perceiver": {
+            "slow": "PerceiverTokenizer",
+            "fast": null
+          },
+          "persimmon": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "phi": {
+            "slow": "CodeGenTokenizer",
+            "fast": "CodeGenTokenizerFast"
+          },
+          "phi3": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "phimoe": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "phobert": {
+            "slow": "PhobertTokenizer",
+            "fast": null
+          },
+          "pix2struct": {
+            "slow": "T5Tokenizer",
+            "fast": "T5TokenizerFast"
+          },
+          "pixtral": {
+            "slow": null,
+            "fast": "PreTrainedTokenizerFast"
+          },
+          "plbart": {
+            "slow": "PLBartTokenizer",
+            "fast": null
+          },
+          "prophetnet": {
+            "slow": "ProphetNetTokenizer",
+            "fast": null
+          },
+          "qdqbert": {
+            "slow": "BertTokenizer",
+            "fast": "BertTokenizerFast"
+          },
+          "qwen2": {
+            "slow": "Qwen2Tokenizer",
+            "fast": "Qwen2TokenizerFast"
+          },
+          "qwen2_audio": {
+            "slow": "Qwen2Tokenizer",
+            "fast": "Qwen2TokenizerFast"
+          },
+          "qwen2_moe": {
+            "slow": "Qwen2Tokenizer",
+            "fast": "Qwen2TokenizerFast"
+          },
+          "qwen2_vl": {
+            "slow": "Qwen2Tokenizer",
+            "fast": "Qwen2TokenizerFast"
+          },
+          "rag": {
+            "slow": "RagTokenizer",
+            "fast": null
+          },
+          "realm": {
+            "slow": "RealmTokenizer",
+            "fast": "RealmTokenizerFast"
+          },
+          "recurrent_gemma": {
+            "slow": "GemmaTokenizer",
+            "fast": "GemmaTokenizerFast"
+          },
+          "reformer": {
+            "slow": "ReformerTokenizer",
+            "fast": "ReformerTokenizerFast"
+          },
+          "rembert": {
+            "slow": "RemBertTokenizer",
+            "fast": "RemBertTokenizerFast"
+          },
+          "retribert": {
+            "slow": "RetriBertTokenizer",
+            "fast": "RetriBertTokenizerFast"
+          },
+          "roberta": {
+            "slow": "RobertaTokenizer",
+            "fast": "RobertaTokenizerFast"
+          },
+          "roberta-prelayernorm": {
+            "slow": "RobertaTokenizer",
+            "fast": "RobertaTokenizerFast"
+          },
+          "roc_bert": {
+            "slow": "RoCBertTokenizer",
+            "fast": null
+          },
+          "roformer": {
+            "slow": "RoFormerTokenizer",
+            "fast": "RoFormerTokenizerFast"
+          },
+          "rwkv": {
+            "slow": null,
+            "fast": "GPTNeoXTokenizerFast"
+          },
+          "seamless_m4t": {
+            "slow": "SeamlessM4TTokenizer",
+            "fast": "SeamlessM4TTokenizerFast"
+          },
+          "seamless_m4t_v2": {
+            "slow": "SeamlessM4TTokenizer",
+            "fast": "SeamlessM4TTokenizerFast"
+          },
+          "siglip": {
+            "slow": "SiglipTokenizer",
+            "fast": null
+          },
+          "speech_to_text": {
+            "slow": "Speech2TextTokenizer",
+            "fast": null
+          },
+          "speech_to_text_2": {
+            "slow": "Speech2Text2Tokenizer",
+            "fast": null
+          },
+          "speecht5": {
+            "slow": "SpeechT5Tokenizer",
+            "fast": null
+          },
+          "splinter": {
+            "slow": "SplinterTokenizer",
+            "fast": "SplinterTokenizerFast"
+          },
+          "squeezebert": {
+            "slow": "SqueezeBertTokenizer",
+            "fast": "SqueezeBertTokenizerFast"
+          },
+          "stablelm": {
+            "slow": null,
+            "fast": "GPTNeoXTokenizerFast"
+          },
+          "starcoder2": {
+            "slow": "GPT2Tokenizer",
+            "fast": "GPT2TokenizerFast"
+          },
+          "switch_transformers": {
+            "slow": "T5Tokenizer",
+            "fast": "T5TokenizerFast"
+          },
+          "t5": {
+            "slow": "T5Tokenizer",
+            "fast": "T5TokenizerFast"
+          },
+          "tapas": {
+            "slow": "TapasTokenizer",
+            "fast": null
+          },
+          "tapex": {
+            "slow": "TapexTokenizer",
+            "fast": null
+          },
+          "transfo-xl": {
+            "slow": "TransfoXLTokenizer",
+            "fast": null
+          },
+          "tvp": {
+            "slow": "BertTokenizer",
+            "fast": "BertTokenizerFast"
+          },
+          "udop": {
+            "slow": "UdopTokenizer",
+            "fast": "UdopTokenizerFast"
+          },
+          "umt5": {
+            "slow": "T5Tokenizer",
+            "fast": "T5TokenizerFast"
+          },
+          "video_llava": {
+            "slow": "LlamaTokenizer",
+            "fast": "LlamaTokenizerFast"
+          },
+          "vilt": {
+            "slow": "BertTokenizer",
+            "fast": "BertTokenizerFast"
+          },
+          "vipllava": {
+          "slow": "LlamaTokenizer",
+          "fast": "LlamaTokenizerFast"
+        },
+        "visual_bert": {
+          "slow": "BertTokenizer",
+          "fast": "BertTokenizerFast"
+        },
+        "vits": {
+          "slow": "VitsTokenizer",
+          "fast": null
+        },
+        "wav2vec2": {
+          "slow": "Wav2Vec2CTCTokenizer",
+          "fast": null
+        },
+        "wav2vec2-bert": {
+          "slow": "Wav2Vec2CTCTokenizer",
+          "fast": null
+        },
+        "wav2vec2-conformer": {
+          "slow": "Wav2Vec2CTCTokenizer",
+          "fast": null
+        },
+        "wav2vec2_phoneme": {
+          "slow": "Wav2Vec2PhonemeCTCTokenizer",
+          "fast": null
+        },
+        "whisper": {
+          "slow": "WhisperTokenizer",
+          "fast": "WhisperTokenizerFast"
+        },
+        "xclip": {
+          "slow": "CLIPTokenizer",
+          "fast": "CLIPTokenizerFast"
+        },
+        "xglm": {
+          "slow": "XGLMTokenizer",
+          "fast": "XGLMTokenizerFast"
+        },
+        "xlm": {
+          "slow": "XLMTokenizer",
+          "fast": null
+        },
+        "xlm-prophetnet": {
+          "slow": "XLMProphetNetTokenizer",
+          "fast": null
+        },
+        "xlm-roberta": {
+          "slow": "XLMRobertaTokenizer",
+          "fast": "XLMRobertaTokenizerFast"
+        },
+        "xlm-roberta-xl": {
+          "slow": "XLMRobertaTokenizer",
+          "fast": "XLMRobertaTokenizerFast"
+        },
+        "xlnet": {
+          "slow": "XLNetTokenizer",
+          "fast": "XLNetTokenizerFast"
+        },
+        "xmod": {
+          "slow": "XLMRobertaTokenizer",
+          "fast": "XLMRobertaTokenizerFast"
+        },
+        "yoso": {
+          "slow": "AlbertTokenizer",
+          "fast": "AlbertTokenizerFast"
+        },
+        "zamba": {
+          "slow": "LlamaTokenizer",
+          "fast": "LlamaTokenizerFast"
+        }
+      },
+    "IMAGE_PROCESSOR_MAPPING_NAMES": {
+        "align": ["EfficientNetImageProcessor"],
+        "aria": ["AriaImageProcessor"],
+        "beit": ["BeitImageProcessor"],
+        "bit": ["BitImageProcessor"],
+        "blip": ["BlipImageProcessor"],
+        "blip-2": ["BlipImageProcessor"],
+        "bridgetower": ["BridgeTowerImageProcessor"],
+        "chameleon": ["ChameleonImageProcessor"],
+        "chinese_clip": ["ChineseCLIPImageProcessor"],
+        "clip": ["CLIPImageProcessor"],
+        "clipseg": ["ViTImageProcessor", "ViTImageProcessorFast"],
+        "conditional_detr": ["ConditionalDetrImageProcessor"],
+        "convnext": ["ConvNextImageProcessor"],
+        "convnextv2": ["ConvNextImageProcessor"],
+        "cvt": ["ConvNextImageProcessor"],
+        "data2vec-vision": ["BeitImageProcessor"],
+        "deformable_detr": ["DeformableDetrImageProcessor", "DeformableDetrImageProcessorFast"],
+        "deit": ["DeiTImageProcessor"],
+        "depth_anything": ["DPTImageProcessor"],
+        "deta": ["DetaImageProcessor"],
+        "detr": ["DetrImageProcessor", "DetrImageProcessorFast"],
+        "dinat": ["ViTImageProcessor", "ViTImageProcessorFast"],
+        "dinov2": ["BitImageProcessor"],
+        "donut-swin": ["DonutImageProcessor"],
+        "dpt": ["DPTImageProcessor"],
+        "efficientformer": ["EfficientFormerImageProcessor"],
+        "efficientnet": ["EfficientNetImageProcessor"],
+        "flava": ["FlavaImageProcessor"],
+        "focalnet": ["BitImageProcessor"],
+        "fuyu": ["FuyuImageProcessor"],
+        "git": ["CLIPImageProcessor"],
+        "glpn": ["GLPNImageProcessor"],
+        "grounding-dino": ["GroundingDinoImageProcessor"],
+        "groupvit": ["CLIPImageProcessor"],
+        "hiera": ["BitImageProcessor"],
+        "idefics": ["IdeficsImageProcessor"],
+        "idefics2": ["Idefics2ImageProcessor"],
+        "idefics3": ["Idefics3ImageProcessor"],
+        "ijepa": ["ViTImageProcessor", "ViTImageProcessorFast"],
+        "imagegpt": ["ImageGPTImageProcessor"],
+        "instructblip": ["BlipImageProcessor"],
+        "instructblipvideo": ["InstructBlipVideoImageProcessor"],
+        "kosmos-2": ["CLIPImageProcessor"],
+        "layoutlmv2": ["LayoutLMv2ImageProcessor"],
+        "layoutlmv3": ["LayoutLMv3ImageProcessor"],
+        "levit": ["LevitImageProcessor"],
+        "llava": ["LlavaImageProcessor"],
+        "llava_next": ["LlavaNextImageProcessor"],
+        "llava_next_video": ["LlavaNextVideoImageProcessor"],
+        "llava_onevision": ["LlavaOnevisionImageProcessor"],
+        "mask2former": ["Mask2FormerImageProcessor"],
+        "maskformer": ["MaskFormerImageProcessor"],
+        "mgp-str": ["ViTImageProcessor", "ViTImageProcessorFast"],
+        "mllama": ["MllamaImageProcessor"],
+        "mobilenet_v1": ["MobileNetV1ImageProcessor"],
+        "mobilenet_v2": ["MobileNetV2ImageProcessor"],
+        "mobilevit": ["MobileViTImageProcessor"],
+        "mobilevitv2": ["MobileViTImageProcessor"],
+        "nat": ["ViTImageProcessor", "ViTImageProcessorFast"],
+        "nougat": ["NougatImageProcessor"],
+        "oneformer": ["OneFormerImageProcessor"],
+        "owlv2": ["Owlv2ImageProcessor"],
+        "owlvit": ["OwlViTImageProcessor"],
+        "paligemma": ["SiglipImageProcessor"],
+        "perceiver": ["PerceiverImageProcessor"],
+        "pix2struct": ["Pix2StructImageProcessor"],
+        "pixtral": ["PixtralImageProcessor", "PixtralImageProcessorFast"],
+        "poolformer": ["PoolFormerImageProcessor"],
+        "pvt": ["PvtImageProcessor"],
+        "pvt_v2": ["PvtImageProcessor"],
+        "qwen2_vl": ["Qwen2VLImageProcessor", "Qwen2VLImageProcessorFast"],
+        "regnet": ["ConvNextImageProcessor"],
+        "resnet": ["ConvNextImageProcessor"],
+        "rt_detr": ["RTDetrImageProcessor", "RTDetrImageProcessorFast"],
+        "sam": ["SamImageProcessor"],
+        "segformer": ["SegformerImageProcessor"],
+        "seggpt": ["SegGptImageProcessor"],
+        "siglip": ["SiglipImageProcessor"],
+        "superglue": ["SuperGlueImageProcessor"],
+        "swiftformer": ["ViTImageProcessor", "ViTImageProcessorFast"],
+        "swin": ["ViTImageProcessor", "ViTImageProcessorFast"],
+        "swin2sr": ["Swin2SRImageProcessor"],
+        "swinv2": ["ViTImageProcessor", "ViTImageProcessorFast"],
+        "table-transformer": ["DetrImageProcessor"],
+        "timesformer": ["VideoMAEImageProcessor"],
+        "timm_wrapper": ["TimmWrapperImageProcessor"],
+        "tvlt": ["TvltImageProcessor"],
+        "tvp": ["TvpImageProcessor"],
+        "udop": ["LayoutLMv3ImageProcessor"],
+        "upernet": ["SegformerImageProcessor"],
+        "van": ["ConvNextImageProcessor"],
+        "videomae": ["VideoMAEImageProcessor"],
+        "vilt": ["ViltImageProcessor"],
+        "vipllava": ["CLIPImageProcessor"],
+        "vit": ["ViTImageProcessor", "ViTImageProcessorFast"],
+        "vit_hybrid": ["ViTHybridImageProcessor"],
+        "vit_mae": ["ViTImageProcessor", "ViTImageProcessorFast"],
+        "vit_msn": ["ViTImageProcessor", "ViTImageProcessorFast"],
+        "vitmatte": ["VitMatteImageProcessor"],
+        "xclip": ["CLIPImageProcessor"],
+        "yolos": ["YolosImageProcessor"],
+        "zoedepth": ["ZoeDepthImageProcessor"]
+      },
+    "MODEL_FOR_MASK_GENERATION_MAPPING_NAMES": {
+        "sam": "SamModel"
+      },
+
+    "MODEL_EXCEPTIONAL_CLASS": {
+      "appleDepthPro": "appledepth"
+      }
+
+  }
+  
