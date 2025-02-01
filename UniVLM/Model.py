@@ -6,7 +6,7 @@ from torchvision import transforms
 import torch
 import requests,io
 
-class Athena:
+class Yggdrasil:
     def __init__(self, model_name, Feature_extractor, Image_processor):
         self.model = None
         self.model_type = None  
