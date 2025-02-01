@@ -251,21 +251,68 @@ class appledepth:
 
     @staticmethod
     def env_setup():
+        """
+        Setup the environment for the model
+        in case of apple depth it will colne the repo and clone and install the dependencies if neededd
+        may not be needed for other models like marigold
+        """
         pass
 
     def load_model(self):
+        """
+        Ensure that the model is loaded if this function is called
+        """
         from src import depth_pro
         self.model, self.transform = depth_pro.create_model_and_transforms()
         self.model.eval()
 
     def processor(self, image_path,text = None):
+        """
+        If the input requires any kind of processing before inference, it should be done here
+        """
         from src import depth_pro
         self.image, _, self.f_px = depth_pro.load_rgb(image_path)
         self.image = self.transform(self.image)
 
     def infer(self):
+        """
+        the commands for taking inference and returning the output should be returned in proper format.
+        """
         prediction = self.model.infer(self.image, f_px=self.f_px)
         return prediction
+
+class Marigold:
+    def _init_(self):
+        #**fill in this**
+        self.pipe = None
+        self.image = None
+        self.depth = None
+
+    @staticmethod
+    def env_setup():
+        #**fill in this**
+        pass
+
+    def load_model(self):
+        #**fill in this**
+        #import torch
+        import diffusers
+        self.pipe = diffusers.MarigoldNormalsPipeline.from_pretrained("prs-eth/marigold-normals-lcm-v0-1")
+
+    def processor(self, image_path,text = None):
+        #**fill in this**
+        import diffusers
+        self.image = diffusers.utils.load_image("https://marigoldmonodepth.github.io/images/einstein.jpg")
+        self.depth = self.pipe(self.image)
+
+
+    def infer(self):
+        #**fill in this**
+        self.depth = self.pipe.image_processor.visualize_normals(self.depth.prediction)
+
+
+#if some function is not needed then it shold not be removed but should be filled with pass
+
 
 reference_table =  {
                                         "MODEL_FOR_CAUSAL_LM_MAPPING_NAMES": AutoModelForCausalLM,
@@ -297,7 +344,8 @@ reference_table =  {
                                         "MODEL_FOR_ZERO_SHOT_IMAGE_CLASSIFICATION_MAPPING_NAMES": AutoModelForZeroShotImageClassification,
                                         "MODEL_FOR_MASK_GENERATION_MAPPING_NAMES": AutoModelForMaskGeneration,
                                         "MODEL_FOR_VISUAL_QUESTION_ANSWERING_MAPPING_NAMES": AutoModelForVisualQuestionAnswering,
-                                        "AppledepthPro" : appledepth
+                                        "AppledepthPro" : appledepth,
+                                        "prs-eth/marigold-normals-lcm-v0-1" : Marigold
                                       }
 
 
