@@ -272,21 +272,132 @@ class appledepth:
 
     @staticmethod
     def env_setup():
+        """
+        Setup the environment for the model
+        in case of apple depth it will colne the repo and clone and install the dependencies if neededd
+        may not be needed for other models like marigold
+        """
         pass
 
     def load_model(self):
-        from src import depth_pro
-        self.model, self.transform = depth_pro.create_model_and_transforms()
-        self.model.eval()
+        """Loads and initializes the depth estimation model.
+
+        This method creates the model and its associated transforms, then sets
+        the model to evaluation mode. It uses the depth_pro module from the src
+        package to create the model instance.
+
+        Returns:
+            None
+
+        Raises:
+            ImportError: If the src.depth_pro module cannot be imported.
+            RuntimeError: If model creation or initialization fails.
+            Exception: If model creation fails.
+
+        Example:
+            model_instance = ModelClass()
+            model_instance.load_model()
+        """
+        try:
+            from src import depth_pro
+            self.model, self.transform = depth_pro.create_model_and_transforms()
+            self.model.eval()
+        except ImportError as e:
+            raise ImportError(f"Failed to import depth_pro module: {str(e)}")
+        except RuntimeError as e:
+            raise RuntimeError(f"Failed to initialize model: {str(e)}")
+        except Exception as e:
+            raise Exception(f"Unexpected error while loading model: {str(e)}")
 
     def processor(self, image_path,text = None):
+        """Processes input image for depth estimation.
+    
+        This method loads and preprocesses the RGB image using depth_pro module's
+        transform pipeline. The processed image and focal length are stored as
+        instance variables.
+
+        Args:
+            image_path (str): Path to the input RGB image file.
+            text (str, optional): Text prompt if model supports text guidance. Defaults to None.
+
+        Raises:
+            FileNotFoundError: If the image file does not exist.
+            ImportError: If depth_pro module cannot be imported.
+            RuntimeError: If image processing fails.
+
+        Side Effects:
+            Sets the following instance variables:
+                - self.image: Transformed image tensor ready for inference
+                - self.f_px: Focal length in pixels
+        
+        Example:
+            model = AppleDepth()
+            model.processor("/path/to/image.jpg")
+        """
         from src import depth_pro
         self.image, _, self.f_px = depth_pro.load_rgb(image_path)
         self.image = self.transform(self.image)
 
     def infer(self):
+        """Performs depth estimation inference on the processed image.
+
+        This method uses the loaded model to perform depth estimation on the 
+        preprocessed image stored in self.image.
+
+        Prerequisites:
+            - Model must be loaded via load_model()
+            - Image must be processed via processor()
+            - self.image and self.f_px must be set
+
+        Returns:
+            torch.Tensor: Predicted depth map with shape (H, W)
+
+        Raises:
+            RuntimeError: If model is not loaded or image is not processed
+            ValueError: If focal length is invalid
+            Exception: If inference fails
+
+        Example:
+            model = AppleDepth()
+            model.load_model()
+            model.processor("image.jpg")
+            depth_map = model.infer()
+        """
         prediction = self.model.infer(self.image, f_px=self.f_px)
         return prediction
+
+class Marigold:
+    def _init_(self):
+        #**fill in this**
+        self.pipe = None
+        self.image = None
+        self.depth = None
+
+    @staticmethod
+    def env_setup():
+        #**fill in this**
+        pass
+
+    def load_model(self):
+        #**fill in this**
+        #import torch
+        import diffusers
+        self.pipe = diffusers.MarigoldNormalsPipeline.from_pretrained("prs-eth/marigold-normals-lcm-v0-1")
+
+    def processor(self, image_path,text = None):
+        #**fill in this**
+        import diffusers
+        self.image = diffusers.utils.load_image("https://marigoldmonodepth.github.io/images/einstein.jpg")
+        self.depth = self.pipe(self.image)
+
+
+    def infer(self):
+        #**fill in this**
+        self.depth = self.pipe.image_processor.visualize_normals(self.depth.prediction)
+
+
+#if some function is not needed then it shold not be removed but should be filled with pass
+
 
 reference_table =  {
                                         "MODEL_FOR_CAUSAL_LM_MAPPING_NAMES": AutoModelForCausalLM,
@@ -318,7 +429,8 @@ reference_table =  {
                                         "MODEL_FOR_ZERO_SHOT_IMAGE_CLASSIFICATION_MAPPING_NAMES": AutoModelForZeroShotImageClassification,
                                         "MODEL_FOR_MASK_GENERATION_MAPPING_NAMES": AutoModelForMaskGeneration,
                                         "MODEL_FOR_VISUAL_QUESTION_ANSWERING_MAPPING_NAMES": AutoModelForVisualQuestionAnswering,
-                                        "AppledepthPro" : appledepth
+                                        "AppledepthPro" : appledepth,
+                                        "prs-eth/marigold-normals-lcm-v0-1" : Marigold
                                       }
 
 
