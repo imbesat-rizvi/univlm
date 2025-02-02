@@ -102,54 +102,75 @@ class HFModelSearcher:
         # Clean up any remaining special characters
         model_name = re.sub(r"[-_]+$", "", model_name, flags=re.IGNORECASE)
         return model_name
+    
+    @staticmethod
+    def search_in_ordered_dict(mapping_name: str, ordered_dict, config_name: str):
+        """Searches for the config_name in a single ordered dictionary."""
+        for model_family, config in ordered_dict.items():
+            if config == config_name:
+                return mapping_name, model_family
+        return None
 
-    def search(self, query: str):
-        query = self.extract_model_family(query)
-        results = []
 
-        # ================== Parallel Exact Matching ==================
-        def exact_match_worker(dict_item):
-            """Worker function for exact matching"""
-            dict_name, ordered_dict = dict_item
-            return [[dict_name, ordered_dict[key]] for key in ordered_dict if key == query]
+    def search(self, query: str,config = None):
+        if config is not None:
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                future_to_mapping = {executor.submit(self.search_in_ordered_dict, name, od, config): name for name, od in self.ordered_dicts_mapping.items()}
+                
+                for future in concurrent.futures.as_completed(future_to_mapping):
+                    result = future.result()
+                    if result:
+                        print(result)
+                        return result  # Return as soon as we find the match
 
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            # Submit all dictionaries for parallel processing
-            exact_futures = [executor.submit(exact_match_worker, item) 
-                            for item in self.ordered_dicts_mapping.items()]
-            
-            # Collect results as they complete
-            for future in concurrent.futures.as_completed(exact_futures):
-                if matches := future.result():
-                    results.extend(matches)
+            return None
+        else:
+            query = self.extract_model_family(query)
+            results = []
 
-        # ================== Parallel Fuzzy Matching ==================
-        if not results:
-            all_entries = []
-            for dict_name, ordered_dict in self.ordered_dicts_mapping.items():
-                all_entries.extend([(dict_name, key, val) for key, val in ordered_dict.items()])
-
-            norm_query = re.sub(r"[-_]", "", query).lower()
-            
-            def fuzzy_score_worker(entry):
-                """Worker function for fuzzy scoring"""
-                dict_name, key, val = entry
-                norm_key = re.sub(r"[-_]", "", key).lower()
-                return (dict_name, val, fuzz.ratio(norm_query, norm_key))
+            # ================== Parallel Exact Matching ==================
+            def exact_match_worker(dict_item):
+                """Worker function for exact matching"""
+                dict_name, ordered_dict = dict_item
+                return [[dict_name, ordered_dict[key]] for key in ordered_dict if key == query]
 
             with concurrent.futures.ThreadPoolExecutor() as executor:
-                # Process all entries in parallel
-                scored_entries = list(executor.map(fuzzy_score_worker, all_entries))                
-                # Find maximum score
-                max_score = max((entry[2] for entry in scored_entries), default=0)
+                # Submit all dictionaries for parallel processing
+                exact_futures = [executor.submit(exact_match_worker, item) 
+                                for item in self.ordered_dicts_mapping.items()]
                 
-                # Collect all matches with max score
-                if max_score > 65:  # Only consider good matches (threshold adjustable)
-                    results.extend(
-                        [[entry[0], entry[1]]
-                        for entry in scored_entries if entry[2] == max_score]
-                    )
-        return results if results else None
+                # Collect results as they complete
+                for future in concurrent.futures.as_completed(exact_futures):
+                    if matches := future.result():
+                        results.extend(matches)
+
+            # ================== Parallel Fuzzy Matching ==================
+            if not results:
+                all_entries = []
+                for dict_name, ordered_dict in self.ordered_dicts_mapping.items():
+                    all_entries.extend([(dict_name, key, val) for key, val in ordered_dict.items()])
+
+                norm_query = re.sub(r"[-_]", "", query).lower()
+                
+                def fuzzy_score_worker(entry):
+                    """Worker function for fuzzy scoring"""
+                    dict_name, key, val = entry
+                    norm_key = re.sub(r"[-_]", "", key).lower()
+                    return (dict_name, val, fuzz.ratio(norm_query, norm_key))
+
+                with concurrent.futures.ThreadPoolExecutor() as executor:
+                    # Process all entries in parallel
+                    scored_entries = list(executor.map(fuzzy_score_worker, all_entries))                
+                    # Find maximum score
+                    max_score = max((entry[2] for entry in scored_entries), default=0)
+                    
+                    # Collect all matches with max score
+                    if max_score > 65:  # Only consider good matches (threshold adjustable)
+                        results.extend(
+                            [[entry[0], entry[1]]
+                            for entry in scored_entries if entry[2] == max_score]
+                        )
+            return results if results else None
 
 class HFProcessorSearcher:
     def __init__(self):
