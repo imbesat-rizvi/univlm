@@ -77,9 +77,26 @@ class HFModelSearcher:
 
     @staticmethod
     def extract_model_family(hf_path: str) -> str:
-        """
-        Preprocess the Hugging Face model path to extract the base model family name.
-        Handles cases like 'bert-base-uncased', 'bert-large', etc.
+        """Extracts the model family name from a HuggingFace model path.
+
+        This function parses a HuggingFace model path and extracts the model family
+        name by splitting the path and analyzing its components.
+
+        Args:
+            hf_path (str): HuggingFace model path in format 'org/model-name' or
+                'org/model-family-version'.
+
+        Returns:
+            str: The extracted model family name.
+
+        Raises:
+            ValueError: If the path format is invalid or cannot be parsed.
+
+        Examples:
+            >>> extract_model_family("facebook/opt-350m")
+            'opt'
+            >>> extract_model_family("microsoft/phi-2")
+            'phi'
         """
         model_name = hf_path.split("/")[-1]  # Get the last part of the path (e.g., 'bert-base-uncased')
 
@@ -105,14 +122,38 @@ class HFModelSearcher:
     
     @staticmethod
     def search_in_ordered_dict(mapping_name: str, ordered_dict, config_name: str):
-        """Searches for the config_name in a single ordered dictionary."""
+        """
+        Searches for the config_name in a single ordered dictionary.
+
+        Args:
+            mapping_name (str): The name of the mapping to be returned if a match is found.
+            ordered_dict (OrderedDict): The ordered dictionary to search within.
+            config_name (str): The configuration name to search for in the ordered dictionary.
+
+        Returns:
+            tuple: A tuple containing the mapping_name and the model_family if a match is found.
+            None: If no match is found.
+        """
         for model_family, config in ordered_dict.items():
             if config == config_name:
                 return mapping_name, model_family
         return None
 
 
-    def search(self, query: str,config = None):
+    def search(self, query: str, config=None):
+        """
+        Search for a query in the ordered dictionaries.
+        If a config is provided, it performs a search using the `search_in_ordered_dict` method
+        in parallel using a ThreadPoolExecutor. If no config is provided, it performs an exact
+        match search followed by a fuzzy match search if no exact matches are found.
+        Args:
+            query (str): The query string to search for.
+            config (optional): Configuration for the search. If provided, the search will use
+                the `search_in_ordered_dict` method.
+        Returns:
+            list or None: A list of matching results if found, otherwise None.
+        """
+        
         if config is not None:
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 future_to_mapping = {executor.submit(self.search_in_ordered_dict, name, od, config): name for name, od in self.ordered_dicts_mapping.items()}
@@ -189,7 +230,16 @@ class HFProcessorSearcher:
 
     @staticmethod
     def extract_model_family(hf_path: str) -> str:
-        """Improved model family extraction focusing on core identifiers"""
+        """
+        Extracts the core model family name from a given Hugging Face model path.
+        This function processes the model path to remove size/version suffixes 
+        (e.g., '-base', '-v2') and isolates the core family name (e.g., 'vit' 
+        from 'vit-patch16'). The resulting family name is normalized to lowercase.
+        Args:
+            hf_path (str): The file path to the Hugging Face model.
+        Returns:
+            str: The core model family name in lowercase.
+        """
         model_name = hf_path.split("/")[-1]
         
         # Remove size/version suffixes (e.g., '-base', '-v2')
@@ -205,6 +255,40 @@ class HFProcessorSearcher:
         return core_family.lower()  # Normalize to lowercase
 
     def search(self, query: str, feature_extractor=False, image_processor=False, tokenizer=False):
+        """Searches for matching model processors based on query and processor type flags.
+
+        This method performs a two-phase search:
+        1. Targeted search based on specified processor type flags
+        2. Fallback search across all processor types if no matches found
+
+        Args:
+            query (str): Model name or family to search for
+            feature_extractor (bool, optional): Search feature extractors. Defaults to False.
+            image_processor (bool, optional): Search image processors. Defaults to False.
+            tokenizer (bool, optional): Search tokenizers. Defaults to False.
+
+        Returns:
+            tuple: A tuple containing (processor_class, processor_name) where:
+                - processor_class: The class to instantiate the processor
+                - processor_name: The full name of the matching processor
+
+        Raises:
+            ValueError: If query is empty or invalid
+            RuntimeError: If no matching processors found
+
+        Examples:
+            >>> # Search for feature extractor
+            >>> search("vit", feature_extractor=True)
+            (ViTFeatureExtractor, "google/vit-base-patch16-224")
+
+            >>> # Search for image processor
+            >>> search("sam", image_processor=True) 
+            (SamImageProcessor, "facebook/sam-vit-base")
+
+            >>> # Default search across all types
+            >>> search("bert")
+            (AutoProcessor, "bert-base-uncased")
+        """
         processed_name = self.extract_model_family(query)
         results = []
         
@@ -228,14 +312,65 @@ class HFProcessorSearcher:
         return self._select_best_match(fallback_matches, fallback_order) if fallback_matches else (None, None)
 
     def _get_priority_order(self, fe, ip, tok):
-        """Determine search priority based on user flags"""
+
+        """Determines search priority order based on processor type flags.
+
+        Internal method used by search() to determine which processor mappings
+        to check first based on user-specified flags.
+
+        Args:
+            fe (bool): Feature extractor flag
+            ip (bool): Image processor flag
+            tok (bool): Tokenizer flag
+
+        Returns:
+            list: List of mapping names in priority order. Possible values:
+                - ["FEATURE_EXTRACTOR_MAPPING_NAMES"]
+                - ["IMAGE_PROCESSOR_MAPPING_NAMES"] 
+                - ["TOKENIZER_MAPPING_NAMES"]
+                - ["PROCESSOR_MAPPING_NAMES", "TOKENIZER_MAPPING_NAMES"]
+
+        Examples:
+            >>> _get_priority_order(fe=True, ip=False, tok=False)
+            ["FEATURE_EXTRACTOR_MAPPING_NAMES"]
+            
+            >>> _get_priority_order(fe=False, ip=False, tok=False)
+            ["PROCESSOR_MAPPING_NAMES", "TOKENIZER_MAPPING_NAMES"]
+
+        Note:
+            This is a private method intended for internal use by the search() method.
+        """
+
         if fe: return ["FEATURE_EXTRACTOR_MAPPING_NAMES"]
         if ip: return ["IMAGE_PROCESSOR_MAPPING_NAMES"]
         if tok: return ["TOKENIZER_MAPPING_NAMES"]
         return ["PROCESSOR_MAPPING_NAMES", "TOKENIZER_MAPPING_NAMES"]
 
+
     def _search_mappings(self, mappings, query):
-        """Search multiple mappings with fuzzy matching"""
+        """Searches through processor mappings for matches to the query.
+
+        Internal method that searches through the provided mapping dictionaries
+        for processor names that match the query string.
+
+        Args:
+            mappings (list): List of mapping dictionary names to search through.
+                Example: ["PROCESSOR_MAPPING_NAMES", "TOKENIZER_MAPPING_NAMES"]
+            query (str): The model family name to search for in the mappings.
+
+        Returns:
+            list: List of tuples containing (processor_class, processor_name) for
+                all matching processors found in the specified mappings.
+
+        Examples:
+            >>> mappings = ["PROCESSOR_MAPPING_NAMES"]
+            >>> _search_mappings(mappings, "bert")
+            [(BertTokenizer, "bert-base-uncased")]
+
+        Note:
+            This is a private method intended for internal use by the search() method.
+            The search is case-insensitive and matches partial names.
+        """
         results = []
         for dict_name in mappings:
             current_dict = self.ordered_dicts_mapping[dict_name]
@@ -254,7 +389,33 @@ class HFProcessorSearcher:
         return results
 
     def _select_best_match(self, matches, priority_order):
-        """Select match with highest priority and score"""
+        """Selects the best matching processor from a list of matches.
+
+        Internal method that selects the most appropriate processor from multiple
+        matches based on the priority order of processor types.
+
+        Args:
+            matches (list): List of tuples containing (processor_class, processor_name)
+                for all matching processors found.
+            priority_order (list): List of mapping names in order of preference.
+                Example: ["FEATURE_EXTRACTOR_MAPPING_NAMES", "PROCESSOR_MAPPING_NAMES"]
+
+        Returns:
+            tuple: A tuple containing (processor_class, processor_name) for the best
+                matching processor, or (None, None) if no matches found.
+
+        Examples:
+            >>> matches = [(ViTFeatureExtractor, "vit-base"), (AutoProcessor, "vit-large")]
+            >>> priority_order = ["FEATURE_EXTRACTOR_MAPPING_NAMES"]
+            >>> _select_best_match(matches, priority_order)
+            (ViTFeatureExtractor, "vit-base")
+
+        Note:
+            This is a private method intended for internal use by the search() method.
+            Selection criteria:
+            1. First matching processor type in priority order
+            2. First match within that processor type
+        """
         scored_matches = sorted(
             matches,
             key=lambda x: (priority_order.index(x[0]), -x[2]),
