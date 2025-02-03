@@ -77,9 +77,26 @@ class HFModelSearcher:
 
     @staticmethod
     def extract_model_family(hf_path: str) -> str:
-        """
-        Preprocess the Hugging Face model path to extract the base model family name.
-        Handles cases like 'bert-base-uncased', 'bert-large', etc.
+        """Extracts the model family name from a HuggingFace model path.
+
+        This function parses a HuggingFace model path and extracts the model family
+        name by splitting the path and analyzing its components.
+
+        Args:
+            hf_path (str): HuggingFace model path in format 'org/model-name' or
+                'org/model-family-version'.
+
+        Returns:
+            str: The extracted model family name.
+
+        Raises:
+            ValueError: If the path format is invalid or cannot be parsed.
+
+        Examples:
+            >>> extract_model_family("facebook/opt-350m")
+            'opt'
+            >>> extract_model_family("microsoft/phi-2")
+            'phi'
         """
         model_name = hf_path.split("/")[-1]  # Get the last part of the path (e.g., 'bert-base-uncased')
 
@@ -105,7 +122,18 @@ class HFModelSearcher:
     
     @staticmethod
     def search_in_ordered_dict(mapping_name: str, ordered_dict, config_name: str):
-        """Searches for the config_name in a single ordered dictionary."""
+        """
+        Searches for the config_name in a single ordered dictionary.
+
+        Args:
+            mapping_name (str): The name of the mapping to be returned if a match is found.
+            ordered_dict (OrderedDict): The ordered dictionary to search within.
+            config_name (str): The configuration name to search for in the ordered dictionary.
+
+        Returns:
+            tuple: A tuple containing the mapping_name and the model_family if a match is found.
+            None: If no match is found.
+        """
         for model_family, config in ordered_dict.items():
             if config == config_name:
                 return mapping_name, model_family
@@ -189,7 +217,16 @@ class HFProcessorSearcher:
 
     @staticmethod
     def extract_model_family(hf_path: str) -> str:
-        """Improved model family extraction focusing on core identifiers"""
+        """
+        Extracts the core model family name from a given Hugging Face model path.
+        This function processes the model path to remove size/version suffixes 
+        (e.g., '-base', '-v2') and isolates the core family name (e.g., 'vit' 
+        from 'vit-patch16'). The resulting family name is normalized to lowercase.
+        Args:
+            hf_path (str): The file path to the Hugging Face model.
+        Returns:
+            str: The core model family name in lowercase.
+        """
         model_name = hf_path.split("/")[-1]
         
         # Remove size/version suffixes (e.g., '-base', '-v2')
@@ -205,6 +242,40 @@ class HFProcessorSearcher:
         return core_family.lower()  # Normalize to lowercase
 
     def search(self, query: str, feature_extractor=False, image_processor=False, tokenizer=False):
+        """Searches for matching model processors based on query and processor type flags.
+
+        This method performs a two-phase search:
+        1. Targeted search based on specified processor type flags
+        2. Fallback search across all processor types if no matches found
+
+        Args:
+            query (str): Model name or family to search for
+            feature_extractor (bool, optional): Search feature extractors. Defaults to False.
+            image_processor (bool, optional): Search image processors. Defaults to False.
+            tokenizer (bool, optional): Search tokenizers. Defaults to False.
+
+        Returns:
+            tuple: A tuple containing (processor_class, processor_name) where:
+                - processor_class: The class to instantiate the processor
+                - processor_name: The full name of the matching processor
+
+        Raises:
+            ValueError: If query is empty or invalid
+            RuntimeError: If no matching processors found
+
+        Examples:
+            >>> # Search for feature extractor
+            >>> search("vit", feature_extractor=True)
+            (ViTFeatureExtractor, "google/vit-base-patch16-224")
+
+            >>> # Search for image processor
+            >>> search("sam", image_processor=True) 
+            (SamImageProcessor, "facebook/sam-vit-base")
+
+            >>> # Default search across all types
+            >>> search("bert")
+            (AutoProcessor, "bert-base-uncased")
+        """
         processed_name = self.extract_model_family(query)
         results = []
         
@@ -228,14 +299,65 @@ class HFProcessorSearcher:
         return self._select_best_match(fallback_matches, fallback_order) if fallback_matches else (None, None)
 
     def _get_priority_order(self, fe, ip, tok):
-        """Determine search priority based on user flags"""
+
+        """Determines search priority order based on processor type flags.
+
+        Internal method used by search() to determine which processor mappings
+        to check first based on user-specified flags.
+
+        Args:
+            fe (bool): Feature extractor flag
+            ip (bool): Image processor flag
+            tok (bool): Tokenizer flag
+
+        Returns:
+            list: List of mapping names in priority order. Possible values:
+                - ["FEATURE_EXTRACTOR_MAPPING_NAMES"]
+                - ["IMAGE_PROCESSOR_MAPPING_NAMES"] 
+                - ["TOKENIZER_MAPPING_NAMES"]
+                - ["PROCESSOR_MAPPING_NAMES", "TOKENIZER_MAPPING_NAMES"]
+
+        Examples:
+            >>> _get_priority_order(fe=True, ip=False, tok=False)
+            ["FEATURE_EXTRACTOR_MAPPING_NAMES"]
+            
+            >>> _get_priority_order(fe=False, ip=False, tok=False)
+            ["PROCESSOR_MAPPING_NAMES", "TOKENIZER_MAPPING_NAMES"]
+
+        Note:
+            This is a private method intended for internal use by the search() method.
+        """
+
         if fe: return ["FEATURE_EXTRACTOR_MAPPING_NAMES"]
         if ip: return ["IMAGE_PROCESSOR_MAPPING_NAMES"]
         if tok: return ["TOKENIZER_MAPPING_NAMES"]
         return ["PROCESSOR_MAPPING_NAMES", "TOKENIZER_MAPPING_NAMES"]
 
+
     def _search_mappings(self, mappings, query):
-        """Search multiple mappings with fuzzy matching"""
+        """Searches through processor mappings for matches to the query.
+
+        Internal method that searches through the provided mapping dictionaries
+        for processor names that match the query string.
+
+        Args:
+            mappings (list): List of mapping dictionary names to search through.
+                Example: ["PROCESSOR_MAPPING_NAMES", "TOKENIZER_MAPPING_NAMES"]
+            query (str): The model family name to search for in the mappings.
+
+        Returns:
+            list: List of tuples containing (processor_class, processor_name) for
+                all matching processors found in the specified mappings.
+
+        Examples:
+            >>> mappings = ["PROCESSOR_MAPPING_NAMES"]
+            >>> _search_mappings(mappings, "bert")
+            [(BertTokenizer, "bert-base-uncased")]
+
+        Note:
+            This is a private method intended for internal use by the search() method.
+            The search is case-insensitive and matches partial names.
+        """
         results = []
         for dict_name in mappings:
             current_dict = self.ordered_dicts_mapping[dict_name]
@@ -254,7 +376,33 @@ class HFProcessorSearcher:
         return results
 
     def _select_best_match(self, matches, priority_order):
-        """Select match with highest priority and score"""
+        """Selects the best matching processor from a list of matches.
+
+        Internal method that selects the most appropriate processor from multiple
+        matches based on the priority order of processor types.
+
+        Args:
+            matches (list): List of tuples containing (processor_class, processor_name)
+                for all matching processors found.
+            priority_order (list): List of mapping names in order of preference.
+                Example: ["FEATURE_EXTRACTOR_MAPPING_NAMES", "PROCESSOR_MAPPING_NAMES"]
+
+        Returns:
+            tuple: A tuple containing (processor_class, processor_name) for the best
+                matching processor, or (None, None) if no matches found.
+
+        Examples:
+            >>> matches = [(ViTFeatureExtractor, "vit-base"), (AutoProcessor, "vit-large")]
+            >>> priority_order = ["FEATURE_EXTRACTOR_MAPPING_NAMES"]
+            >>> _select_best_match(matches, priority_order)
+            (ViTFeatureExtractor, "vit-base")
+
+        Note:
+            This is a private method intended for internal use by the search() method.
+            Selection criteria:
+            1. First matching processor type in priority order
+            2. First match within that processor type
+        """
         scored_matches = sorted(
             matches,
             key=lambda x: (priority_order.index(x[0]), -x[2]),
@@ -263,21 +411,175 @@ class HFProcessorSearcher:
         best_match = scored_matches[0]
         return self.model_classes_mapping[best_match[0]], best_match[1]
 
+import os
+import subprocess
+import json
+from pathlib import Path
 class appledepth:
     def _init_(self):
         self.model = None
         self.transform = None
         self.image = None
         self.f_px = None
-
+    
+    @staticmethod
+    def conda_env_exists(env_name):
+        """Check if a Conda environment exists."""
+        try:
+            output = subprocess.check_output(
+                ["conda", "env", "list", "--json"],
+                text=True,
+                stderr=subprocess.PIPE
+            )
+            envs_data = json.loads(output)
+            return any(os.path.basename(env_path) == env_name 
+                    for env_path in envs_data.get('envs', []))
+        except (subprocess.CalledProcessError, json.JSONDecodeError) as e:
+            print(f"Error checking Conda environments: {e}")
+            return False
+        
+    @staticmethod 
+    def is_git_repo(path):
+        """Check if a directory is a git repository."""
+        return (Path(path) / ".git").exists()
+    
+    @staticmethod
+    def models_exist(repo_dir):
+        """Check if the core model file exists."""
+        return (Path(repo_dir) / "checkpoints" / "depth_pro.pt").exists()
+    
     @staticmethod
     def env_setup():
-        """
-        Setup the environment for the model
-        in case of apple depth it will colne the repo and clone and install the dependencies if neededd
-        may not be needed for other models like marigold
-        """
-        pass
+            # Check if git is installed
+        try:
+            subprocess.run(
+                ["git", "--version"],
+                check=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+        except subprocess.CalledProcessError:
+            print("Error: Git is not installed or not in PATH. Please install Git and try again.")
+            return
+
+        # Check if conda is installed
+        try:
+            subprocess.run(
+                ["conda", "--version"],
+                check=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+        except subprocess.CalledProcessError:
+            print("Error: Conda is not installed or not in PATH. Please install Conda (Anaconda/Miniconda) and try again.")
+            return
+        
+        repo_dir = "ml-depth-pro"
+        env_name = "depth-pro"
+
+        # Clone or update repository
+        if os.path.exists(repo_dir):
+            if appledepth.is_git_repo(repo_dir):
+                try:
+                    print("Updating existing repository...")
+                    subprocess.run(
+                        ["git", "-C", repo_dir, "pull"],
+                        check=True
+                    )
+                    print("Repository updated successfully.")
+                except subprocess.CalledProcessError:
+                    print("Warning: Could not update repository. Using existing version.")
+            else:
+                print("Warning: Existing directory is not a git repository. Using as-is.")
+        else:
+            try:
+                print("Cloning the repository...")
+                subprocess.run(
+                    ["git", "clone", "https://github.com/apple/ml-depth-pro.git"],
+                    check=True
+                )
+                print("Repository cloned successfully.")
+            except subprocess.CalledProcessError as e:
+                print(f"Error cloning repository: {e}")
+                print("Please check your internet connection or the repository URL.")
+                return
+        
+        # Conda environment setup 
+        if not appledepth.conda_env_exists(env_name):
+            try:
+                print(f"Creating Conda environment '{env_name}'...")
+                subprocess.run(
+                    ["conda", "create", "-n", env_name, "-y", "python=3.9"],
+                    check=True
+                )
+                print("Environment created successfully.")
+            except subprocess.CalledProcessError as e:
+                print(f"Error creating Conda environment: {e}")
+                print("Ensure you have sufficient permissions and disk space.")
+                return
+        else:
+            print(f"Conda environment '{env_name}' already exists. Proceeding...")
+
+        # Install package
+        try:
+            installed = subprocess.run(
+                ["conda", "run", "-n", env_name, "pip", "show", "depth-pro"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True
+            ).returncode == 0
+            
+            if not installed:
+                print("Installing package in development mode...")
+                subprocess.run(
+                    ["conda", "run", "-n", env_name, "pip", "install", "-e", "."],
+                    cwd=repo_dir,
+                    check=True
+                )
+                print("Package installed successfully.")
+            else:
+                print("Package already installed. Skipping installation.")
+        except subprocess.CalledProcessError as e:
+            print(f"Error checking/installing package: {e}")
+            return
+
+        # Model download handling
+        model_path = Path(repo_dir) / "checkpoints" / "depth_pro.pt"
+        script_path = Path(repo_dir) / "get_pretrained_models.sh"
+        
+        if not model_path.exists():
+            try:
+                print("Downloading pretrained models...")
+                
+                # Ensure checkpoints directory exists
+                model_path.parent.mkdir(parents=True, exist_ok=True)
+                
+                # Clean up any previous partial downloads
+                for f in model_path.parent.glob("depth_pro.pt*"):
+                    print(f"Removing previous download: {f}")
+                    f.unlink()
+
+                # Make script executable and run (CORRECTED LINE)
+                subprocess.run(["chmod", "+x", str(script_path)], check=True)
+                subprocess.run(
+                    ["./get_pretrained_models.sh"],  # This was the critical fix
+                    cwd=repo_dir,
+                    check=True
+                )
+                
+                # Final verification
+                if not model_path.exists():
+                    raise RuntimeError("Model download failed - check repo's get_pretrained_models.sh script")
+                    
+                print("Models downloaded successfully.")
+            except (subprocess.CalledProcessError, RuntimeError) as e:
+                print(f"Error downloading models: {e}")
+                return
+        else:
+            print("Pretrained models already exist. Skipping download.")
+
+        print("Environment setup complete.")
+            
 
     def load_model(self):
         """Loads and initializes the depth estimation model.
