@@ -112,7 +112,7 @@ class HFModelSearcher:
         return None
 
 
-    def search(self, query: str,config = None):
+    def search(self, query: str = None,config = None):
         if config is not None:
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 future_to_mapping = {executor.submit(self.search_in_ordered_dict, name, od, config): name for name, od in self.ordered_dicts_mapping.items()}
@@ -366,34 +366,34 @@ class appledepth:
         prediction = self.model.infer(self.image, f_px=self.f_px)
         return prediction
 
-class Marigold:
-    def _init_(self):
-        #**fill in this**
-        self.pipe = None
-        self.image = None
-        self.depth = None
+# class Marigold:
+#     def _init_(self):
+#         #**fill in this**
+#         self.pipe = None
+#         self.image = None
+#         self.depth = None
 
-    @staticmethod
-    def env_setup():
-        #**fill in this**
-        pass
+#     @staticmethod
+#     def env_setup():
+#         #**fill in this**
+#         pass
 
-    def load_model(self):
-        #**fill in this**
-        #import torch
-        import diffusers
-        self.pipe = diffusers.MarigoldNormalsPipeline.from_pretrained("prs-eth/marigold-normals-lcm-v0-1")
+#     def load_model(self):
+#         #**fill in this**
+#         #import torch
+#         import diffusers
+#         self.pipe = diffusers.MarigoldNormalsPipeline.from_pretrained("prs-eth/marigold-normals-lcm-v0-1")
 
-    def processor(self, image_path,text = None):
-        #**fill in this**
-        import diffusers
-        self.image = diffusers.utils.load_image("https://marigoldmonodepth.github.io/images/einstein.jpg")
-        self.depth = self.pipe(self.image)
+#     def processor(self, image_path,text = None):
+#         #**fill in this**
+#         import diffusers
+#         self.image = diffusers.utils.load_image("https://marigoldmonodepth.github.io/images/einstein.jpg")
+#         self.depth = self.pipe(self.image)
 
 
-    def infer(self):
-        #**fill in this**
-        self.depth = self.pipe.image_processor.visualize_normals(self.depth.prediction)
+#     def infer(self):
+#         #**fill in this**
+#         self.depth = self.pipe.image_processor.visualize_normals(self.depth.prediction)
 
 
 #if some function is not needed then it shold not be removed but should be filled with pass
@@ -430,7 +430,7 @@ reference_table =  {
                                         "MODEL_FOR_MASK_GENERATION_MAPPING_NAMES": AutoModelForMaskGeneration,
                                         "MODEL_FOR_VISUAL_QUESTION_ANSWERING_MAPPING_NAMES": AutoModelForVisualQuestionAnswering,
                                         "AppledepthPro" : appledepth,
-                                        "prs-eth/marigold-normals-lcm-v0-1" : Marigold
+                                        # "prs-eth/marigold-normals-lcm-v0-1" : Marigold
                                       }
 
 
