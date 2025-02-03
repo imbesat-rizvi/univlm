@@ -424,21 +424,175 @@ class HFProcessorSearcher:
         best_match = scored_matches[0]
         return self.model_classes_mapping[best_match[0]], best_match[1]
 
+import os
+import subprocess
+import json
+from pathlib import Path
 class appledepth:
     def _init_(self):
         self.model = None
         self.transform = None
         self.image = None
         self.f_px = None
-
+    
+    @staticmethod
+    def conda_env_exists(env_name):
+        """Check if a Conda environment exists."""
+        try:
+            output = subprocess.check_output(
+                ["conda", "env", "list", "--json"],
+                text=True,
+                stderr=subprocess.PIPE
+            )
+            envs_data = json.loads(output)
+            return any(os.path.basename(env_path) == env_name 
+                    for env_path in envs_data.get('envs', []))
+        except (subprocess.CalledProcessError, json.JSONDecodeError) as e:
+            print(f"Error checking Conda environments: {e}")
+            return False
+        
+    @staticmethod 
+    def is_git_repo(path):
+        """Check if a directory is a git repository."""
+        return (Path(path) / ".git").exists()
+    
+    @staticmethod
+    def models_exist(repo_dir):
+        """Check if the core model file exists."""
+        return (Path(repo_dir) / "checkpoints" / "depth_pro.pt").exists()
+    
     @staticmethod
     def env_setup():
-        """
-        Setup the environment for the model
-        in case of apple depth it will colne the repo and clone and install the dependencies if neededd
-        may not be needed for other models like marigold
-        """
-        pass
+            # Check if git is installed
+        try:
+            subprocess.run(
+                ["git", "--version"],
+                check=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+        except subprocess.CalledProcessError:
+            print("Error: Git is not installed or not in PATH. Please install Git and try again.")
+            return
+
+        # Check if conda is installed
+        try:
+            subprocess.run(
+                ["conda", "--version"],
+                check=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+        except subprocess.CalledProcessError:
+            print("Error: Conda is not installed or not in PATH. Please install Conda (Anaconda/Miniconda) and try again.")
+            return
+        
+        repo_dir = "ml-depth-pro"
+        env_name = "depth-pro"
+
+        # Clone or update repository
+        if os.path.exists(repo_dir):
+            if appledepth.is_git_repo(repo_dir):
+                try:
+                    print("Updating existing repository...")
+                    subprocess.run(
+                        ["git", "-C", repo_dir, "pull"],
+                        check=True
+                    )
+                    print("Repository updated successfully.")
+                except subprocess.CalledProcessError:
+                    print("Warning: Could not update repository. Using existing version.")
+            else:
+                print("Warning: Existing directory is not a git repository. Using as-is.")
+        else:
+            try:
+                print("Cloning the repository...")
+                subprocess.run(
+                    ["git", "clone", "https://github.com/apple/ml-depth-pro.git"],
+                    check=True
+                )
+                print("Repository cloned successfully.")
+            except subprocess.CalledProcessError as e:
+                print(f"Error cloning repository: {e}")
+                print("Please check your internet connection or the repository URL.")
+                return
+        
+        # Conda environment setup 
+        if not appledepth.conda_env_exists(env_name):
+            try:
+                print(f"Creating Conda environment '{env_name}'...")
+                subprocess.run(
+                    ["conda", "create", "-n", env_name, "-y", "python=3.9"],
+                    check=True
+                )
+                print("Environment created successfully.")
+            except subprocess.CalledProcessError as e:
+                print(f"Error creating Conda environment: {e}")
+                print("Ensure you have sufficient permissions and disk space.")
+                return
+        else:
+            print(f"Conda environment '{env_name}' already exists. Proceeding...")
+
+        # Install package
+        try:
+            installed = subprocess.run(
+                ["conda", "run", "-n", env_name, "pip", "show", "depth-pro"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True
+            ).returncode == 0
+            
+            if not installed:
+                print("Installing package in development mode...")
+                subprocess.run(
+                    ["conda", "run", "-n", env_name, "pip", "install", "-e", "."],
+                    cwd=repo_dir,
+                    check=True
+                )
+                print("Package installed successfully.")
+            else:
+                print("Package already installed. Skipping installation.")
+        except subprocess.CalledProcessError as e:
+            print(f"Error checking/installing package: {e}")
+            return
+
+        # Model download handling
+        model_path = Path(repo_dir) / "checkpoints" / "depth_pro.pt"
+        script_path = Path(repo_dir) / "get_pretrained_models.sh"
+        
+        if not model_path.exists():
+            try:
+                print("Downloading pretrained models...")
+                
+                # Ensure checkpoints directory exists
+                model_path.parent.mkdir(parents=True, exist_ok=True)
+                
+                # Clean up any previous partial downloads
+                for f in model_path.parent.glob("depth_pro.pt*"):
+                    print(f"Removing previous download: {f}")
+                    f.unlink()
+
+                # Make script executable and run (CORRECTED LINE)
+                subprocess.run(["chmod", "+x", str(script_path)], check=True)
+                subprocess.run(
+                    ["./get_pretrained_models.sh"],  # This was the critical fix
+                    cwd=repo_dir,
+                    check=True
+                )
+                
+                # Final verification
+                if not model_path.exists():
+                    raise RuntimeError("Model download failed - check repo's get_pretrained_models.sh script")
+                    
+                print("Models downloaded successfully.")
+            except (subprocess.CalledProcessError, RuntimeError) as e:
+                print(f"Error downloading models: {e}")
+                return
+        else:
+            print("Pretrained models already exist. Skipping download.")
+
+        print("Environment setup complete.")
+            
 
     def load_model(self):
         """Loads and initializes the depth estimation model.
