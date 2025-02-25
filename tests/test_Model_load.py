@@ -1,12 +1,12 @@
 import unittest
 from unittest.mock import patch, MagicMock
 import torch
-from Model import Yggdrasil, reference_table
+from Model import unify
 from Model_utils import HFModelSearcher, HFProcessorSearcher
 
-class TestYggdrasilInitialization(unittest.TestCase):
+class TestunifyInitialization(unittest.TestCase):
     def test_init_with_valid_parameters(self):
-        y = Yggdrasil("nlptown/bert-base-multilingual-uncased-sentiment", 
+        y = unify("nlptown/bert-base-multilingual-uncased-sentiment", 
                       Feature_extractor=False, 
                       Image_processor=False,
                       Config_Name='BertForSequenceClassification')
@@ -14,7 +14,7 @@ class TestYggdrasilInitialization(unittest.TestCase):
         self.assertFalse(y.Feature_extractor)
         self.assertFalse(y.Image_processor)
 
-class TestYggdrasilLoad(unittest.TestCase):
+class TestunifyLoad(unittest.TestCase):
     @patch('Model_utils.HFModelSearcher')
     @patch('transformers.AutoModelForSequenceClassification.from_pretrained')
     def test_load_hf_success(self, mock_from_pretrained, mock_searcher):
@@ -22,7 +22,7 @@ class TestYggdrasilLoad(unittest.TestCase):
         mock_searcher.return_value = mock_searcher_instance
         mock_searcher_instance.search.return_value = [["MODEL_FOR_SEQUENCE_CLASSIFICATION_MAPPING_NAMES", "bert"]]
         
-        y = Yggdrasil("nlptown/bert-base-multilingual-uncased-sentiment", 
+        y = unify("nlptown/bert-base-multilingual-uncased-sentiment", 
                      False, False,
                      Config_Name='BertForSequenceClassification')
         result = y.load()
@@ -31,7 +31,7 @@ class TestYggdrasilLoad(unittest.TestCase):
         self.assertEqual(y.model_type, "HF")
         mock_from_pretrained.assert_called_once_with("nlptown/bert-base-multilingual-uncased-sentiment")
 
-class TestYggdrasilProcessor(unittest.TestCase):
+class TestunifyProcessor(unittest.TestCase):
     @patch('Model_utils.HFProcessorSearcher')
     def test_hf_processor_loading(self, mock_searcher):
         mock_processor = MagicMock()
@@ -39,21 +39,21 @@ class TestYggdrasilProcessor(unittest.TestCase):
         mock_searcher.return_value = mock_searcher_instance
         mock_searcher_instance.search.return_value = (MagicMock(), "nlptown/bert-base-multilingual-uncased-sentiment")
         
-        y = Yggdrasil("nlptown/bert-base-multilingual-uncased-sentiment", False, False)
+        y = unify("nlptown/bert-base-multilingual-uncased-sentiment", False, False)
         y.model_type = "HF"
         result = y.Proccessor()
         
         self.assertEqual(result, "Processor Loaded")
         self.assertIsNotNone(y.Processor)
 
-class TestYggdrasilInference(unittest.TestCase):
+class TestunifyInference(unittest.TestCase):
     def setUp(self):
         self.mock_hf_model = MagicMock()
         self.mock_hf_processor = MagicMock()
 
     # In test_Model_load.py - Fix sentiment inference test
     def test_sentiment_model_inference(self):
-        y = Yggdrasil("nlptown/bert-base-multilingual-uncased-sentiment", 
+        y = unify("nlptown/bert-base-multilingual-uncased-sentiment", 
                     False, False,
                     Config_Name='BertForSequenceClassification')
         y.model_type = "HF"
@@ -79,7 +79,7 @@ class TestYggdrasilInference(unittest.TestCase):
 
 class TestHelperMethods(unittest.TestCase):
     def test_processor_input_names(self):
-        y = Yggdrasil("nlptown/bert-base-multilingual-uncased-sentiment", False, False)
+        y = unify("nlptown/bert-base-multilingual-uncased-sentiment", False, False)
         
         # Test tokenizer
         mock_tokenizer = MagicMock()
@@ -89,7 +89,7 @@ class TestHelperMethods(unittest.TestCase):
         self.assertEqual(names["text"], "text")
 
     def test_standardize_payload(self):
-        y = Yggdrasil("nlptown/bert-base-multilingual-uncased-sentiment", False, False)
+        y = unify("nlptown/bert-base-multilingual-uncased-sentiment", False, False)
         
         # Test text standardization
         payload = {"input_text": "This is awesome!"}
