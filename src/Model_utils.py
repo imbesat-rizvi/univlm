@@ -601,39 +601,6 @@ class appledepth:
         prediction = self.model.infer(self.image, f_px=self.f_px)
         return prediction
 
-# class Marigold:
-#     def _init_(self):
-#         #**fill in this**
-#         self.pipe = None
-#         self.image = None
-#         self.depth = None
-
-#     @staticmethod
-#     def env_setup():
-#         #**fill in this**
-#         pass
-
-#     def load_model(self):
-#         #**fill in this**
-#         #import torch
-#         import diffusers
-#         self.pipe = diffusers.MarigoldNormalsPipeline.from_pretrained("prs-eth/marigold-normals-lcm-v0-1")
-
-#     def processor(self, image_path,text = None):
-#         #**fill in this**
-#         import diffusers
-#         self.image = diffusers.utils.load_image("https://marigoldmonodepth.github.io/images/einstein.jpg")
-#         self.depth = self.pipe(self.image)
-
-
-#     def infer(self):
-#         #**fill in this**
-#         self.depth = self.pipe.image_processor.visualize_normals(self.depth.prediction)
-
-
-#if some function is not needed then it shold not be removed but should be filled with pass
-
-
 reference_table =  {
                                         "MODEL_FOR_CAUSAL_LM_MAPPING_NAMES": AutoModelForCausalLM,
                                         "MODEL_FOR_IMAGE_CLASSIFICATION_MAPPING_NAMES": AutoModelForImageClassification,
