@@ -32,7 +32,7 @@ from univlm.Model import unify
 # Depth Estimation with Apple DepthPro (Exclusive Model)
 y = unify("AppledepthPro")
 y.load()
-y.Processor()
+y.Proccessor()
 image_path = "input.jpg"
 output = y.inference(image_path)
 print("Depth map generated:", output)
@@ -46,7 +46,7 @@ listy = [raw_image, raw_image]
 payload = {"pixel_values": listy, "text": ["how many dogs?", "color of dog"]}
 y = unify("Salesforce/blip-vqa-base")
 y.load()
-y.Processor()
+y.Proccessor()
 output = y.inference(payload)
 print(output)
 
@@ -56,7 +56,7 @@ image = Image.open(requests.get(img_url, stream=True).raw).convert('RGB')
 payload = {"pixel_values": image, "text": None}
 y = unify("facebook/sam-vit-base", Image_processor=True)
 y.load()
-y.Processor()
+y.Proccessor()
 output = y.inference(payload)
 print(output)
 
@@ -64,7 +64,7 @@ print(output)
 y = unify("nlptown/bert-base-multilingual-uncased-sentiment", Config_Name="BertForNextSentencePrediction")
 y.load()
 payload = {"text": "Hello, how are you?", "pixel_values": None}
-y.Processor()
+y.Proccessor()
 output = y.inference(payload)
 print(output)
 ```
