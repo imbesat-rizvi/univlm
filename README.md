@@ -23,7 +23,8 @@ univlm-install
 ```
 
 ## Quick Start
-Refer to the documentation [Examples](https://web-documentation-for-univlm.readthedocs.io/en/latest/quickstart/).
+Refer to the documentation for an overview of library[Doc](https://web-documentation-for-univlm.readthedocs.io/en/latest).
+
 
 ## Contributing
 Contributions will be welcomed once the project is finalized.
