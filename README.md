@@ -25,6 +25,49 @@ univlm-install
 ## Quick Start
 Refer to the documentation for an overview of library [Doc](https://web-documentation-for-univlm.readthedocs.io/en/latest).
 
+Examples:- 
+```python
+from univlm.Model import unify
+
+# Depth Estimation with Apple DepthPro (Exclusive Model)
+y = unify("AppledepthPro")
+y.load()
+y.Processor()
+image_path = "input.jpg"
+output = y.inference(image_path)
+print("Depth map generated:", output)
+
+# Vision-Language Question Answering with BLIP (Vision-Language Model)
+from PIL import Image
+import requests
+img_url = 'https://storage.googleapis.com/sfr-vision-language-research/BLIP/demo.jpg'
+raw_image = Image.open(requests.get(img_url, stream=True).raw).convert('RGB')
+listy = [raw_image, raw_image]
+payload = {"pixel_values": listy, "text": ["how many dogs?", "color of dog"]}
+y = unify("Salesforce/blip-vqa-base")
+y.load()
+y.Processor()
+output = y.inference(payload)
+print(output)
+
+# Image Segmentation with SAM (Vision Model)
+img_url = "https://storage.googleapis.com/sfr-vision-language-research/BLIP/demo.jpg"
+image = Image.open(requests.get(img_url, stream=True).raw).convert('RGB')
+payload = {"pixel_values": image, "text": None}
+y = unify("facebook/sam-vit-base", Image_processor=True)
+y.load()
+y.Processor()
+output = y.inference(payload)
+print(output)
+
+# Sentiment Analysis with BERT (Text Model)
+y = unify("nlptown/bert-base-multilingual-uncased-sentiment", Config_Name="BertForNextSentencePrediction")
+y.load()
+payload = {"text": "Hello, how are you?", "pixel_values": None}
+y.Processor()
+output = y.inference(payload)
+print(output)
+```
 
 ## Contributing
 Contributions will be welcomed once the project is finalized.
