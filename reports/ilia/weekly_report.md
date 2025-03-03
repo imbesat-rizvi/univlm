@@ -71,4 +71,51 @@
 
 - **Next Steps**: Integrate my model (Marigold) into the structure of our pipeline
 
+### Week [KW 4]
+
+- **Update 1**: I have thoroughly studied the entire proposed structure and integrated the solution for Marigold into our pipeline
+- **Update 2**: I pushed these changes to GitHub, and thus we now have a new version of the project
+- **Update 3**: During the meeting, we discussed the issues of our pipeline with Rizvi and set a goal to develop a new, improved structure
+
+- **Next Steps**: To enhance our pipeline and make it even more universal
+- **Next Steps**: Start preparing the poster for the presentation
+
+### Week [KW 5]
+
+- **Update 1**: Discussions about our structure, joint additional meetings with Aryan for its explanation and accelerated understanding
+- **Update 2**: Unfortunately, a second team member has left our project, and now only three of us remain. Because of this, we decided to focus on HF models for now, while treating models like Apple DepthPro and Marigold as exceptions by writing custom classes for them ourselves
+- **Update 3**: Kick-off the poster preparation for the presentation
+
+- **Next Steps**: Implement classes for Marigold in the final pipeline
+- **Next Steps**: Finalize the poster preparation for the presentation
+
+  ### Week [KW 6]
+
+- **Update 1**: All exceptional classes were written, and our first complete version of the pipeline was presented to our mentor, Rizvi. It was not final, but already sufficient for us to start preparing it for submission at the end of the project and improving it
+- **Update 2**: Additional meetings and discussions about our presentation
+- **Update 3**: Creating the first version of the documentation and adding it to our poster
+- **Update 4**: Finalization, printing, and presentation of the poster
+  
+- **Next Steps**: Discuss the next steps with Rizvi.
+This week was too intense due to the presentation, so we focused on it rather than on the code and project structure. Because of this, code improvements have been on pause for now
+
+  ### Week [KW 7]
+
+- **Update 1**: We discussed and focused on finalizing our project: testing and code optimization
+- **Update 2**: Separately, I started improving the documentation and preparing it for the final submission at the end of February.
+  
+- **Next Steps**: Discuss the report writing
+
+  ### Week [KW 8]
+
+- **Update 1**: Continuation of project finalization: testing and code optimization
+- **Update 2**: Continuation of documentation improvement
+- **Update 3**: Start of report creation by our team
+  
+- **Next Steps**:Take the final steps in all areas of our project for submission and ensure quality control
+
+  ### Week [KW 9]
+
+- **Update 1**: Final touches in documentation, optimization, testing, and the report.
+- **Update 2**: Project submission
 
