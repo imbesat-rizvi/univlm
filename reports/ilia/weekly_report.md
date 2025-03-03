@@ -53,19 +53,19 @@
 
 - **Next Steps**: Study Marigold on Hugging Face
 
-- ### Week [KW 52]
+### Week [KW 52]
 
 - **Update 1**: Christmas & New Year break at TU Darmstadt.
 
-- - ### Week [KW 1]
+### Week [KW 1]
 
 - **Update 1**: Christmas & New Year break at TU Darmstadt.
 
-- - ### Week [KW 2]
+### Week [KW 2]
 
 - **Update 1**: Christmas & New Year break at TU Darmstadt.
 
-- ### Week [KW 3]
+### Week [KW 3]
 
 - **Update 1**: At the first meeting in 2025, we discussed the features of our models and the general requirements for integrating them into our pipeline. We proposed our structures and code examples, and one common pipeline structure was chosen, to which all models should be aligned
 
@@ -89,7 +89,7 @@
 - **Next Steps**: Implement classes for Marigold in the final pipeline
 - **Next Steps**: Finalize the poster preparation for the presentation
 
-  ### Week [KW 6]
+### Week [KW 6]
 
 - **Update 1**: All exceptional classes were written, and our first complete version of the pipeline was presented to our mentor, Rizvi. It was not final, but already sufficient for us to start preparing it for submission at the end of the project and improving it
 - **Update 2**: Additional meetings and discussions about our presentation
@@ -99,14 +99,14 @@
 - **Next Steps**: Discuss the next steps with Rizvi.
 This week was too intense due to the presentation, so we focused on it rather than on the code and project structure. Because of this, code improvements have been on pause for now
 
-  ### Week [KW 7]
+### Week [KW 7]
 
 - **Update 1**: We discussed and focused on finalizing our project: testing and code optimization
 - **Update 2**: Separately, I started improving the documentation and preparing it for the final submission at the end of February.
   
 - **Next Steps**: Discuss the report writing
 
-  ### Week [KW 8]
+### Week [KW 8]
 
 - **Update 1**: Continuation of project finalization: testing and code optimization
 - **Update 2**: Continuation of documentation improvement
@@ -114,8 +114,9 @@ This week was too intense due to the presentation, so we focused on it rather th
   
 - **Next Steps**:Take the final steps in all areas of our project for submission and ensure quality control
 
-  ### Week [KW 9]
+### Week [KW 9]
 
 - **Update 1**: Final touches in documentation, optimization, testing, and the report.
 - **Update 2**: Project submission
+
 
