@@ -12,7 +12,7 @@
 
 | Start      | End        | Task Name       | Task Description         | Time Spent (hours) | Status        |
 |------------|------------|-----------------|--------------------------|--------------------|---------------|
-| [MM/DD/YY] | [MM/DD/YY] | Task Unification   | [Description of Task 1]  | [Time spent]       | [In Progress] |
+| [11/11/24] | [11/24/24] | Basics & Introdution & First Steps   | [First meetings, discussions, material study, and task distribution]  | [20]       | [Completed] |
 | [MM/DD/YY] | [MM/DD/YY] | [Task 2 Name]   | [Description of Task 2]  | [Time spent]       | [Completed]   |
 | [MM/DD/YY] | [MM/DD/YY] | [Task 3 Name]   | [Description of Task 3]  | [Time spent]       | [Pending]     |
 
