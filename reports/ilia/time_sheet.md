@@ -19,7 +19,7 @@
 | 1/6/25 | 1/19/25 | Marigold | Studying and analyzing the project structure, meetings, initial implementations, and refreshing the project in memory after the Christmas and New Year holidays  | 20-25 | Completed |
 | 1/20/25 | 2/16/25 | Pipeline implementation | The core part of the project, where we worked most intensively and ultimately delivered the final version of our pipeline  | 60-80 | Completed |
 | 2/16/25 | 2/28/25 | Pipeline improvements | Further improvements to the pipeline, its testing and validation, code optimization meetings on this matter  | 25-35 | Completed |
-| 11/1/24 | 2/28/25 | Everything else | Poster, Documentation, Conda (study and setup), SLURM study and setup, remaining meetings with Rizvi, self-study of the material, and deeper immersion into the topic  | 30-70 (very hard to estimate) | Completed |
+| 11/1/24 | 2/28/25 | Everything else | Poster, Report, Documentation, Conda (study and setup), SLURM study and setup, remaining meetings with Rizvi, self-study of the material, and deeper immersion into the topic  | 30-70 (very hard to estimate) | Completed |
 
 P.S. Unfortunately, we did not track our work by the minute, but overall, we can estimate the time spent. However, it is important to acknowledge that the exact time may vary, and I can only provide a range
 ---
