@@ -26,8 +26,18 @@ univlm-install
 Refer to the documentation for an overview of library [Doc](https://web-documentation-for-univlm.readthedocs.io/en/latest).
 
 Examples:- 
+
+
 ```python
 from univlm.Model import unify
+
+#VLLM Example
+prompts = ["Hello, my name is", "what is the capital of United States"]
+y = unify("facebook/opt-125m")
+y.load()
+payload = {"text": prompts, "pixel_values": None}
+output = y.inference(payload)
+print(output)
 
 # Depth Estimation with Apple DepthPro (Exclusive Model)
 y = unify("AppledepthPro")
