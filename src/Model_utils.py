@@ -415,7 +415,7 @@ import os
 import subprocess
 from pathlib import Path
 import sys
-
+import torch
 
 class appledepth:
     def __init__(self):
@@ -423,6 +423,7 @@ class appledepth:
         self.transform = None
         self.image = None
         self.f_px = None
+        self.prediction = None
     
     @staticmethod
     def download_checkpoints():
@@ -431,7 +432,7 @@ class appledepth:
         # Use os.path.realpath(__file__) to get the package root for checkpoints
         current_file = os.path.realpath(__file__)
         package_root = os.path.dirname(current_file)  # Go up two levels to univlm root (assuming file is in univlm/Model_utils.py)
-        checkpoint_dir = os.path.join(package_root, "checkpoints")  # Directory in univlm/checkpoints
+        checkpoint_dir = os.path.join(package_root,"src", "checkpoints")  
 
         repo_id = "apple/DepthPro"
 
@@ -523,7 +524,7 @@ class appledepth:
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
             return 1
-        
+            
     def load_model(self):
         """Loads and initializes the depth estimation model.
 
@@ -544,18 +545,34 @@ class appledepth:
             model_instance.load_model()
         """
         try:
+            from .src.depth_pro import DepthProConfig, create_model_and_transforms
             # Ensure src is in sys.path (added in env_setup, but recheck here)
             current_file = os.path.realpath(__file__)
-            package_root = os.path.dirname(os.path.dirname(current_file))  # Go up two levels to univlm root
+            package_root = os.path.dirname(os.path.dirname(current_file))
             src_path = os.path.join(package_root, "src")
+            checkpoint_path = os.path.join(package_root, "univlm","src","checkpoints", "depth_pro.pt")
+            
+
             if src_path not in sys.path:
                 sys.path.append(src_path)
                 print(f"Added '{src_path}' to sys.path: {sys.path}")
 
-            # Import from src/depth_pro as a package
-            from .src.depth_pro import create_model_and_transforms  # Use package structure
-            self.model, self.transform = create_model_and_transforms()
+            config = DepthProConfig(
+                patch_encoder_preset="dinov2l16_384",
+                image_encoder_preset="dinov2l16_384",
+                checkpoint_uri=checkpoint_path,
+                decoder_features=256,
+                use_fov_head=True,
+                fov_encoder_preset="dinov2l16_384",
+            )
+
+            self.model, self.transform = create_model_and_transforms(
+                config=config,
+                device=torch.device("cpu"),  # Adjust device as needed (e.g., "cuda")
+                precision=torch.float32      # Adjust precision as needed (e.g., torch.float16)
+            )
             self.model.eval()
+            print("Model loaded successfully.")
         except ImportError as e:
             raise ImportError(f"Failed to import depth_pro module: {str(e)}")
         except RuntimeError as e:
@@ -597,7 +614,7 @@ class appledepth:
             print(f"Added '{src_path}' to sys.path: {sys.path}")
 
         # Import from src/depth_pro as a package
-        from .src.depth_pro import load_rgb  # Use package structure
+        from .src.utils import load_rgb  # Use package structure
         self.image, _, self.f_px = load_rgb(image_path)
         self.image = self.transform(self.image)
 
@@ -626,8 +643,17 @@ class appledepth:
             model.processor("image.jpg")
             depth_map = model.infer()
         """
-        prediction = self.model.infer(self.image, f_px=self.f_px)
-        return prediction
+        self.prediction = self.model.infer(self.image, f_px=self.f_px)
+        return self.prediction
+    def post_processor(self):
+        depth = self.prediction["depth"]
+        import matplotlib.pyplot as plt
+        depth_np = depth.cpu().numpy()
+        depth_normalized = (depth_np - depth_np.min()) / (depth_np.max() - depth_np.min())
+        plt.imshow(depth_normalized, cmap='plasma')
+        plt.colorbar(label='Normalized Depth')
+        plt.title('Normalized Depth Map')
+        plt.savefig("depth_map.png")
     
 
 
