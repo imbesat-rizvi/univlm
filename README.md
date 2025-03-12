@@ -27,6 +27,7 @@ Refer to the documentation for an overview of library [Doc](https://web-document
 
 Examples:- 
 
+Note: In order to run appledepth timm ,pillow-heif and matplotlib are needed.
 
 ```python
 from univlm.Model import unify
