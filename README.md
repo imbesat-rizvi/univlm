@@ -30,6 +30,8 @@ Examples:-
 
 ```python
 from univlm.Model import unify
+from PIL import Image
+import requests
 
 #VLLM Example
 prompts = ["Hello, my name is", "what is the capital of United States"]
