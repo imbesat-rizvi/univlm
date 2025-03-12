@@ -1,6 +1,6 @@
 from .Model_utils import HFModelSearcher,HFProcessorSearcher, reference_table 
 from transformers import AutoModelForCausalLM, AutoModelForVision2Seq, AutoModelForSeq2SeqLM, AutoModelForMaskedLM
-from vllm import LLM, SamplingParams # type: ignore
+from vllm import LLM, SamplingParams 
 import torch
 
 class unify:
@@ -72,7 +72,7 @@ class unify:
             print("Exclusive model Loaded")
             return "Loaded"  
         except Exception as e:
-            print(f"Not supported by Athena as of this moment: {e}")
+            print(f"Not supported by Univlm as of this moment: {e}")
 
         return "Failed to Load"  # Return failure if all methods fail
 
@@ -92,7 +92,7 @@ class unify:
             self.Processor, temp = Placeholder.search(self.model_name,self.Feature_extractor,self.Image_processor)
             self.Processor = self.Processor.from_pretrained(self.model_name)
         elif self.model_type == "Exclusive":
-            self.Processor = self.model.processor()
+            pass 
         else: 
             raise ValueError("Model not loaded")
         
@@ -168,7 +168,7 @@ class unify:
         """
         Perform inference on single or batch inputs
         """
-        if self.model_type != "Exclusive":
+        if self.model_type == "HF" or self.model_type == "VLLM":
             # Standardize input format
             standardized_payload, is_batch = self._standardize_payload(payload)
             if not standardized_payload:
@@ -286,13 +286,9 @@ class unify:
                             responses.append(processor.decode(output, skip_special_tokens=True))
                         return responses if is_batch else responses[0]
 
-        else:  # Exclusive
+        if self.model_type == "Exclusive":  # Exclusive
+            self.model.processor(payload)
             outputs = []
-            for i in range(len(next(iter(standardized_payload.values())))):
-                single_payload = {
-                    k: v[i] if v is not None else None 
-                    for k, v in standardized_payload.items()
-                }
-                self.model.processor(single_payload)
-                outputs.append(self.model.infer())
-            return outputs if is_batch else outputs[0]
+            outputs.append(self.model.infer())
+            self.model.post_processor()
+            return outputs
