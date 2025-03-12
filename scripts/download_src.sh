@@ -1,39 +1,55 @@
 #!/bin/bash
 
-# Determine the root of the univlm package (assuming script is in univlm/scripts/)
-PACKAGE_ROOT="$(dirname "$(dirname "$(realpath "$0")")")"
-TARGET_DIR="$PACKAGE_ROOT/src"  # Target directory is univlm/src
+set -e
 
-# Check if the target directory (src) already exists
-if [ -d "$TARGET_DIR" ]; then
-  echo "Target directory '$TARGET_DIR' already exists. Please remove it or choose a different name."
-  exit 1
+
+# Use environment variables passed from Python
+PACKAGE_ROOT=${PACKAGE_ROOT:-$(pwd)}
+BACKBONE_DIR=${BACKBONE_DIR:-"${PACKAGE_ROOT}/Package_Backbone"}
+TESTING_SCRIPT=${TESTING_SCRIPT:-"${PACKAGE_ROOT}/scripts/testing.py"}
+
+# Create required directories
+mkdir -p "${BACKBONE_DIR}"
+
+
+cd "${BACKBONE_DIR}"
+
+FILES=(
+    "modeling_auto.py"
+    "processing_auto.py"
+    "tokenization_auto.py"
+    "image_processing_auto.py"
+    "feature_extraction_auto.py"
+)
+
+all_exist=true
+for file in "${FILES[@]}"; do
+    if [ ! -f "${BACKBONE_DIR}/${file}" ]; then
+        all_exist=false
+        break
+    fi
+done
+
+if [ "$all_exist" = true ]; then
+    exit 0
 fi
+# Download HuggingFace files
+echo "📥 Downloading required Hugging Face files..."
 
-# Remove any existing depthProSrc directory to avoid confusion
-if [ -d "$PACKAGE_ROOT/depthProSrc" ]; then
-  rm -rf "$PACKAGE_ROOT/depthProSrc"
-  echo "Removed existing 'depthProSrc' directory."
-fi
+for file in "${FILES[@]}"; do
+    if [ ! -f "$file" ]; then
+        wget -q "https://raw.githubusercontent.com/huggingface/transformers/main/src/transformers/models/auto/${file}"
+        echo "✅ Downloaded: ${file}"
+    else
+        echo "✅ File exists: ${file}"
+    fi
+done
 
-# Define the repository URL
-REPO_URL="https://github.com/apple/ml-depth-pro.git"
+# Run testing on downloaded files
+echo "🛠 Running testing on downloaded files..."
+for file in *.py; do
+    echo "🔍 Testing: ${file}"
+    python "${TESTING_SCRIPT}" "${file}"
+done
 
-# Navigate to the package root and create a temporary directory for cloning
-TEMP_DIR="$PACKAGE_ROOT/temp_clone"
-mkdir -p "$TEMP_DIR"
-
-# Clone the repository into the temporary directory with sparse checkout
-cd "$TEMP_DIR" || exit 1
-git clone "$REPO_URL" .
-git config core.sparsecheckout true
-echo "src/*" >> .git/info/sparse-checkout
-git checkout main  # Use 'main' or replace with the desired branch if needed
-
-# Move the contents of src directly to univlm/src, then clean up
-mv "src/"* "$TARGET_DIR/"
-rm -rf "$TEMP_DIR"
-
-echo "Successfully downloaded the contents of 'src' to '$TARGET_DIR'."
-
-exit 0  # Successful completion
+echo "✅ All operations completed successfully!"
